@@ -1,0 +1,1667 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Exportation Services - UGANE BUSINESS SERVICES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #e94560;
+            --accent-color: #0f3460;
+            --gold-color: #ffa500;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.08);
+            --shadow-md: 0 5px 25px rgba(0,0,0,0.12);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* PRELOADER */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* NAVIGATION */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo-text h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--secondary-color);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-menu li a {
+            color: var(--text-dark);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--gradient-2);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-menu li a:hover::after,
+        .nav-menu li a.active::after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropbtn {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
+        }
+
+        .dropbtn i {
+            font-size: 0.7rem;
+            transition: var(--transition);
+        }
+
+        .dropdown:hover .dropbtn i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            min-width: 240px;
+            box-shadow: var(--shadow-lg);
+            border-radius: 15px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 1.5rem;
+            color: var(--text-dark);
+            border-bottom: 1px solid #f0f0f0;
+            transition: var(--transition);
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a i {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+        }
+
+        .dropdown-content a:hover {
+            background: var(--bg-light);
+            padding-left: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary-color);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* SERVICE HERO */
+        .service-hero {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)), 
+                        url('https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1200') center/cover;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            color: var(--white);
+            padding-top: 80px;
+        }
+
+        .service-hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .service-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .service-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .service-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            max-width: 700px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        /* SERVICE OVERVIEW */
+        .service-overview {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .overview-image img {
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .overview-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .overview-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .overview-features {
+            margin-top: 2rem;
+        }
+
+        .feature-check {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .feature-check:hover {
+            background: var(--gradient-2);
+            color: var(--white);
+            transform: translateX(10px);
+        }
+
+        .feature-check i {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+
+        .feature-check:hover i {
+            color: var(--white);
+        }
+
+        /* PRODUCTS SECTION */
+        .products-section {
+            background: var(--bg-light);
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--gradient-2);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2.5rem
+;
+        }
+
+    .product-card {
+        background: var(--white);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+    }
+
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .product-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        position: relative;
+    }
+
+    .product-info {
+        padding: 2rem;
+    }
+
+    .product-category {
+        display: inline-block;
+        background: var(--gradient-2);
+        color: var(--white);
+        padding: 0.3rem 1rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .product-info h3 {
+        font-size: 1.4rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .product-info p {
+        color: var(--text-light);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+
+    .product-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .product-feature-tag {
+        background: var(--bg-light);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        color: var(--text-dark);
+    }
+
+    .product-link {
+        color: var(--secondary-color);
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .product-link:hover {
+        gap: 1rem;
+    }
+
+    /* PROCESS SECTION */
+    .process-section {
+        padding: 6rem 0;
+        background: var(--white);
+    }
+
+    .process-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-top: 3rem;
+    }
+
+    .process-step {
+        text-align: center;
+        position: relative;
+    }
+
+    .process-step::after {
+        content: '';
+        position: absolute;
+        top: 50px;
+        right: -50%;
+        width: 100%;
+        height: 3px;
+        background: var(--gradient-1);
+        z-index: -1;
+    }
+
+    .process-step:last-child::after {
+        display: none;
+    }
+
+    .process-number {
+        width: 100px;
+        height: 100px;
+        background: var(--gradient-1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--white);
+        box-shadow: var(--shadow-md);
+        position: relative;
+    }
+
+    .process-step h3 {
+        font-size: 1.3rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .process-step p {
+        color: var(--text-light);
+        line-height: 1.8;
+    }
+
+    /* CERTIFICATIONS */
+    .certifications-section {
+        background: var(--bg-light);
+        padding: 6rem 0;
+    }
+
+    .cert-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .cert-card {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+    }
+
+    .cert-card:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-md);
+    }
+
+    .cert-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--gradient-2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        font-size: 2rem;
+        color: var(--white);
+    }
+
+    .cert-card h4 {
+        color: var(--primary-color);
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .cert-card p {
+        color: var(--text-light);
+        font-size: 0.9rem;
+    }
+
+    /* STATS SECTION */
+    .stats-section {
+        background: var(--gradient-1);
+        color: var(--white);
+        padding: 5rem 0;
+        text-align: center;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 3rem;
+        margin-top: 3rem;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+    .stat-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+    }
+
+    /* FAQ SECTION */
+    .faq-section {
+        padding: 6rem 0;
+        background: var(--white);
+    }
+
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .faq-item {
+        background: var(--white);
+        margin-bottom: 1.5rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+    }
+
+    .faq-question {
+        padding: 1.5rem 2rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--bg-light);
+        transition: var(--transition);
+    }
+
+    .faq-question:hover {
+        background: var(--gradient-2);
+        color: var(--white);
+    }
+
+    .faq-question h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .faq-question i {
+        font-size: 1.2rem;
+        transition: var(--transition);
+    }
+
+    .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 500px;
+    }
+
+    .faq-answer p {
+        padding: 2rem;
+        color: var(--text-light);
+        line-height: 1.8;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+        background: var(--gradient-2);
+        color: var(--white);
+        text-align: center;
+        padding: 6rem 0;
+    }
+
+    .cta-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+    }
+
+    .cta-section p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+    }
+
+    .btn-light {
+        background: var(--white);
+        color: var(--primary-color);
+        box-shadow: var(--shadow-md);
+    }
+
+    .btn-light:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    /* FOOTER - Modern Design */
+    .footer {
+        background: var(--primary-color);
+        color: var(--white);
+        padding: 4rem 0 2rem;
+        position: relative;
+    }
+
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-2);
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-col h3,
+    .footer-col h4 {
+        margin-bottom: 1.5rem;
+        color: var(--white);
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    .footer-col p {
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-col ul li a {
+        color: rgba(255,255,255,0.8);
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .footer-col ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .social-links a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        font-size: 1.1rem;
+    }
+
+    .social-links a:hover {
+        background: var(--secondary-color);
+        transform: translateY(-5px) rotate(360deg);
+    }
+
+    .contact-info li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1rem;
+        transition: var(--transition);
+    }
+
+    .contact-info li:hover {
+        color: var(--white);
+        padding-left: 5px;
+    }
+
+    .contact-info i {
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+        width: 20px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+    }
+
+    .social-links a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+    }
+
+    .social-links a:hover {
+        background: var(--secondary-color);
+        transform: translateY(-5px) rotate(360deg);
+    }
+
+    .contact-info li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1rem;
+    }
+
+    .contact-info i {
+        color: var(--secondary-color);
+        width: 20px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+    }
+
+    /* SCROLL TO TOP */
+    .scroll-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--gradient-2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        box-shadow: var(--shadow-md);
+        z-index: 999;
+    }
+
+    .scroll-top.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .scroll-top:hover {
+        transform: translateY(-5px);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        .nav-menu {
+            position: fixed;
+            left: -100%;
+            top: 70px;
+            flex-direction: column;
+            background: var(--white);
+            width: 100%;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: var(--shadow-lg);
+            padding: 2rem 0;
+            gap: 0;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-menu li {
+            margin: 1.5rem 0;
+            width: 100%;
+        }
+
+        .dropdown-content {
+            position: static;
+            box-shadow: none;
+            margin-top: 0.5rem;
+            transform: none;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+
+        .service-hero h1 {
+            font-size: 2rem;
+        }
+
+        .service-hero p {
+            font-size: 1rem;
+        }
+
+        .overview-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .products-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .process-step::after {
+            display: none;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
+<!-- Navigation -->
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <div class="nav-wrapper">
+            <div class="logo">
+                <div class="logo-icon">U</div>
+                <div class="logo-text">
+                    <h2>UGANE</h2>
+                    <span>Business Services</span>
+                </div>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn active">Services <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="food-export.html"><i class="fas fa-shipping-fast"></i> Food Exportation</a>
+                        <a href="real-estate.html"><i class="fas fa-building"></i> Real Estate</a>
+                        <a href="hospitality.html"><i class="fas fa-hotel"></i> Hospitality</a>
+                        <a href="interior.html"><i class="fas fa-paint-roller"></i> Interior Decoration</a>
+                        <a href="household.html"<i class="fas fa-couch"></i> Household Equipment</a>
+                            <a href="wellness.html"><i class="fas fa-spa"></i> Health & Wellness</a>
+                            <a href="perfumes.html"><i class="fas fa-spray-can"></i> Perfumes</a>
+                            <a href="fashion.html"><i class="fas fa-tshirt"></i> Fashion & Wears</a>
+                        </div>
+                    </li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+<!-- Service Hero -->
+<section class="service-hero">
+    <div class="container">
+        <div class="service-hero-content">
+            <div class="service-badge">
+                <i class="fas fa-shipping-fast"></i> Food Exportation Services
+            </div>
+            <h1>Premium Food Export Solutions</h1>
+            <p>Connecting Nigeria's finest agricultural products to global markets with excellence, quality assurance, and international compliance standards.</p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn btn-primary">
+                    <span>View Products</span>
+                    <i class="fas fa-arrow-down"></i>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                    <span>Get Quote</span>
+                    <i class="fas fa-calculator"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Service Overview -->
+<section class="service-overview">
+    <div class="container">
+        <div class="overview-grid">
+            <div class="overview-image">
+                <img src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=600" alt="Food Export">
+            </div>
+            <div class="overview-content">
+                <h2>World-Class Food Exportation</h2>
+                <p>UGANE Business Services has established itself as a leading food export company, connecting Nigeria's rich agricultural resources to international markets across Europe, North America, Asia, and beyond.</p>
+                <p>We specialize in the export of premium quality food products including agricultural produce, processed foods, spices, and specialty items. Our commitment to quality, safety, and timely delivery has earned us recognition as a trusted partner in international trade.</p>
+                <div class="overview-features">
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>International Quality Standards & Certifications</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Cold Chain & Temperature-Controlled Logistics</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Complete Export Documentation Support</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Direct Sourcing from Verified Farms</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Products Section -->
+<section class="products-section" id="products">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">Our Products</div>
+            <h2>What We Export</h2>
+            <p>Premium quality Nigerian products delivered to global markets</p>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1582284540020-8acbe03f4924?w=400" alt="Cashew Nuts" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Nuts & Seeds</span>
+                    <h3>Cashew Nuts</h3>
+                    <p>Premium grade cashew nuts sourced from certified farms. Available in raw and processed forms with international quality standards.</p>
+                    <div class="product-features">
+                        <span class="product-feature-tag">Grade W320</span>
+                        <span class="product-feature-tag">Organic Options</span>
+                        <span class="product-feature-tag">Bulk Orders</span>
+                    </div>
+                    <a href="contact.html" class="product-link">Request Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1582284540020-8acbe03f4924?w=400" alt="Cocoa" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Agricultural Produce</span>
+                    <h3>Cocoa Beans</h3>
+                    <p>High-quality fermented and dried cocoa beans for chocolate manufacturers and processors worldwide.</p>
+                    <div class="product-features">
+                        <span class="product-feature-tag">Premium Grade</span>
+                        <span class="product-feature-tag">Fair Trade</span>
+                        <span class="product-feature-tag">Certified</span>
+                    </div>
+                    <a href="contact.html" class="product-link">Request Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1599599810769-bcde5a160d32?w=400" alt="Ginger" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Spices</span>
+                    <h3>Fresh Ginger</h3>
+                    <p>Export-quality fresh ginger with high oil content, perfect for international spice markets and food processing.</p>
+                    <div class="product-features">
+                        <span class="product-feature-tag">High Oil Content</span>
+                        <span class="product-feature-tag">Fresh & Dried</span>
+                        <span class="product-feature-tag">Year-Round</span>
+                    </div>
+                    <a href="contact.html" class="product-link">Request Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400" alt="Sesame Seeds" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Seeds</span>
+                    <h3>Sesame Seeds</h3>
+                    <p>White and brown sesame seeds with 99% purity, ideal for oil extraction and food manufacturing.</p>
+                    <div class="product-features">
+                        <span class="product-feature-tag">99% Purity</span>
+                        <span class="product-feature-tag">Lab Tested</span>
+                        <span class="product-feature-tag">Export Grade</span>
+                    </div>
+                    <a href="contact.html" class="product-link">Request Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1599459183200-59c7687a0275?w=400" alt="Hibiscus" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Dried Flowers</span>
+                    <h3>Hibiscus Flowers (Zobo)</h3>
+                    <p>Premium dried hibiscus flowers for tea production and beverage manufacturing. Rich in antioxidants.</p>
+                    <div class="product-features">
+                        <span class="product-feature-tag">Organic</span>
+                        <span class="product-feature-tag">Sun-Dried</span>
+                        <span class="product-feature-tag">Food Grade</span>
+                    </div>
+                    <a href="contact.html" class="product-link">Request Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <img src="https://images.unsplash.com/photo-1584308972272-9e4e7685e80f?w=400" alt="Shea Butter" class="product-image">
+                <div class="product-info">
+                    <span class="product-category">Natural Products</span>
+                    <h3>Shea Butter</h3>
+                    <p>Unrefined, organic shea butter for cosmetics and pharmaceutical industries worldwide.</p>
+                    <div class="product-features">
+                        <span class="product-feature-tag">100% Natural</span>
+                        <span class="product-feature-tag">Unrefined</span>
+                        <span class="product-feature-tag">Fair Trade</span>
+                    </div>
+                    <a href="contact.html" class="product-link">Request Quote <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Process Section -->
+<section class="process-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">Our Process</div>
+            <h2>How We Work</h2>
+            <p>From farm to international market - a seamless export process</p>
+        </div>
+        <div class="process-grid">
+            <div class="process-step">
+                <div class="process-number">1</div>
+                <h3>Sourcing & Selection</h3>
+                <p>We carefully source products from verified farms and suppliers, ensuring only premium quality products are selected for export.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">2</div>
+                <h3>Quality Control</h3>
+                <p>Rigorous quality checks and laboratory testing ensure all products meet international food safety standards and regulations.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">3</div>
+                <h3>Processing & Packaging</h3>
+                <p>Products are processed in certified facilities and packaged using international standards for optimal freshness and safety.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">4</div>
+                <h3>Documentation</h3>
+                <p>We handle all export documentation including certificates of origin, phytosanitary certificates, and customs clearance.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">5</div>
+                <h3>Logistics & Shipping</h3>
+                <p>Temperature-controlled logistics and reliable shipping partners ensure your products arrive fresh and on time.</p>
+            </div>
+            <div class="process-step">
+                <div class="process-number">6</div>
+                <h3>After-Sales Support</h3>
+                <p>Continuous support and communication throughout the delivery process and beyond to ensure customer satisfaction.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Certifications -->
+<section class="certifications-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">Certifications</div>
+            <h2>International Standards</h2>
+            <p>Certified and compliant with global quality standards</p>
+        </div>
+        <div class="cert-grid">
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h4>HACCP Certified</h4>
+                <p>Food Safety Management</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h4>ISO 22000</h4>
+                <p>Food Safety Standards</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <h4>Organic Certified</h4>
+                <p>Organic Agriculture Standards</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-globe"></i>
+                </div>
+                <h4>Export License</h4>
+                <p>Government Approved</p>
+            </div>
+            <div class="cert-card">
+                <div class="cert-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h4>Fair Trade</h4>
+                <p>Ethical Sourcing</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section">
+    <div class="container">
+        <h2 style="margin-bottom: 1rem;">Our Export Performance</h2>
+        <p style="opacity: 0.9; margin-bottom: 3rem;">Numbers that speak for themselves</p>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-globe"></i></div>
+                <div class="stat-number" data-target="25">0</div>
+                <div class="stat-label">Countries Served</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-box"></i></div>
+                <div class="stat-number" data-target="5000">0</div>
+                <div class="stat-label">Tons Exported Annually</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-number" data-target="200">0</div>
+                <div class="stat-label">International Clients</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-star"></i></div>
+                <div class="stat-number" data-target="99">0</div>
+                <div class="stat-label">% Customer Satisfaction</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">FAQ</div>
+            
+
+<h2>
+Frequently Asked Questions</h2>
+                <p>Everything you need to know about our food export services</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h4>What products do you export?</h4>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We export a wide range of agricultural products including cashew nuts, cocoa beans, ginger, sesame seeds, hibiscus flowers, shea butter, and various other Nigerian agricultural commodities. All products are sourced from verified farms and meet international quality standards.</p>
+                    </div>
+                </div>
+
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Which countries do you export to?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We export to over 25 countries across Europe, North America, Asia, and the Middle East. Our major markets include the United Kingdom, United States, Germany, China, India, and various other countries. We have established logistics networks to ensure efficient delivery worldwide.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>What is your minimum order quantity?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Minimum order quantities vary depending on the product type. Generally, we require a minimum of one 20-foot container for most products. However, we can accommodate smaller orders for sample testing or trial shipments. Contact us for specific MOQ details for your desired product.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>How do you ensure product quality?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Quality assurance is our top priority. We conduct rigorous inspections at every stage - from farm selection to final packaging. All products undergo laboratory testing for moisture content, purity, and contaminants. We hold HACCP and ISO 22000 certifications and provide detailed quality certificates with each shipment.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>What documentation do you provide?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We provide complete export documentation including Certificate of Origin, Phytosanitary Certificate, Quality/Analysis Certificate, Bill of Lading, Commercial Invoice, Packing List, and any other documentation required by your country's import regulations.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>What are your payment terms?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We offer flexible payment terms including Letter of Credit (LC), Telegraphic Transfer (TT), and other internationally recognized payment methods. For new clients, we typically require advance payment or LC at sight. Terms can be negotiated based on order volume and business relationship.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>How long does shipping take?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Shipping time varies by destination. Generally, sea freight to Europe takes 3-4 weeks, to North America 4-5 weeks, and to Asia 3-6 weeks depending on the specific port. Air freight is available for urgent orders with delivery within 5-7 days to most destinations.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h4>Can you provide samples?</h4>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we provide samples for quality evaluation. Sample costs and shipping fees are typically borne by the buyer, but these costs can be deducted from your first order. Samples are usually sent via courier and arrive within 3-5 business days.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready to Start Exporting?</h2>
+        <p>Get a free quote for your food export needs today</p>
+        <a href="contact.html" class="btn btn-light">
+            <span>Request Quote</span>
+            <i class="fas fa-paper-plane"></i>
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>UGANE Business Services</h3>
+                <p>Your trusted partner across multiple industries, delivering excellence and quality in everything we do.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html"><i class="fas fa-angle-right"></i> About Us</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-angle-right"></i> Gallery</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="food-export.html"><i class="fas fa-angle-right"></i> Food Exportation</a></li>
+                    <li><a href="real-estate.html"><i class="fas fa-angle-right"></i> Real Estate</a></li>
+                    <li><a href="hospitality.html"><i class="fas fa-angle-right"></i> Hospitality</a></li>
+                    <li><a href="interior.html"><i class="fas fa-angle-right"></i> Interior Decoration</a></li>
+                    <li><a href="household.html"><i class="fas fa-angle-right"></i> Household Equipment</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> Victoria Island, Lagos, Nigeria</li>
+                    <li><i class="fas fa-phone"></i> +234 (0) 123 456 7890</li>
+                    <li><i class="fas fa-envelope"></i> info@uganebusiness.com</li>
+                    <li><i class="fas fa-clock"></i> Mon - Sat: 8:00 AM - 6:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 UGANE Business Services. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to Top -->
+<div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+    // Preloader
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            document.getElementById('preloader').classList.add('hidden');
+        }, 1000);
+    });
+
+    // Hamburger Menu
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    });
+
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('navbar');
+        const scrollTop = document.getElementById('scrollTop');
+        
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+
+        if (window.scrollY > 300) {
+            scrollTop.classList.add('show');
+        } else {
+            scrollTop.classList.remove('show');
+        }
+    });
+
+    // Scroll to Top
+    document.getElementById('scrollTop').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Smooth Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    // Animated Counter
+    function animateCounter(element, target, duration) {
+        let current = 0;
+        const increment = target / (duration / 16);
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = target + (target === 99 ? '' : '+');
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current);
+            }
+        }, 16);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.getAttribute('data-target'));
+                animateCounter(entry.target, target, 2000);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-number').forEach(counter => {
+        counterObserver.observe(counter);
+    });
+
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(question => {
+        question.addEventListener('click', function() {
+            const faqItem = this.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // Close all FAQs
+            document.querySelectorAll('.faq-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Open clicked FAQ if it wasn't active
+            if (!isActive) {
+                faqItem.classList.add('active');
+            }
+        });
+    });
+
+    // Intersection Observer
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.product-card, .process-step, .cert-card, .faq-item').forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(element);
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health & Wellness Products - UGANE BUSINESS SERVICES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #e94560;
+            --accent-color: #0f3460;
+            --gold-color: #ffa500;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.08);
+            --shadow-md: 0 5px 25px rgba(0,0,0,0.12);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo-text h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--secondary-color);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-menu li a {
+            color: var(--text-dark);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--gradient-2);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-menu li a:hover::after,
+        .nav-menu li a.active::after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropbtn {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
+        }
+
+        .dropbtn i {
+            font-size: 0.7rem;
+            transition: var(--transition);
+        }
+
+        .dropdown:hover .dropbtn i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            min-width: 240px;
+            box-shadow: var(--shadow-lg);
+            border-radius: 15px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 1.5rem;
+            color: var(--text-dark);
+            border-bottom: 1px solid #f0f0f0;
+            transition: var(--transition);
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a i {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+        }
+
+        .dropdown-content a:hover {
+            background: var(--bg-light);
+            padding-left: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary-color);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .service-hero {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)), 
+                        url('https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=1200') center/cover;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            color: var(--white);
+            padding-top: 80px;
+        }
+
+        .service-hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .service-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .service-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .service-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            max-width: 700px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .btn-light {
+            background: var(--white);
+            color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-light:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-overview {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .overview-image img {
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .overview-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .overview-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .overview-features {
+            margin-top: 2rem;
+        }
+
+        .feature-check {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .feature-check:hover {
+            background: var(--gradient-2);
+            color: var(--white);
+            transform: translateX(10px);
+        }
+
+        .feature-check i {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+
+        .feature-check:hover i {
+            color: var(--white);
+        }
+
+        .services-section {
+            background: var(--bg-light);
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--gradient-2);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template
+-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+    .service-card {
+        background: var(--white);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .service-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    .service-info {
+        padding: 2rem;
+    }
+
+    .service-category {
+        display: inline-block;
+        background: var(--gradient-2);
+        color: var(--white);
+        padding: 0.3rem 1rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .service-info h3 {
+        font-size: 1.4rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .service-info p {
+        color: var(--text-light);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+
+    .service-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .service-feature-tag {
+        background: var(--bg-light);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        color: var(--text-dark);
+    }
+
+    .service-link {
+        color: var(--secondary-color);
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .service-link:hover {
+        gap: 1rem;
+    }
+
+    .stats-section {
+        background: var(--gradient-1);
+        color: var(--white);
+        padding: 5rem 0;
+        text-align: center;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 3rem;
+        margin-top: 3rem;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+    .stat-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+    }
+
+    .cta-section {
+        background: var(--gradient-2);
+        color: var(--white);
+        text-align: center;
+        padding: 6rem 0;
+    }
+
+    .cta-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+    }
+
+    .cta-section p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+    }
+
+    .footer {
+        background: var(--primary-color);
+        color: var(--white);
+        padding: 4rem 0 2rem;
+        position: relative;
+    }
+
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-2);
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-col h3,
+    .footer-col h4 {
+        margin-bottom: 1.5rem;
+        color: var(--white);
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    .footer-col p {
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-col ul li a {
+        color: rgba(255,255,255,0.8);
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .footer-col ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .social-links a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+    }
+
+    .social-links a:hover {
+        background: var(--secondary-color);
+        transform: translateY(-5px) rotate(360deg);
+    }
+
+    .contact-info li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1rem;
+    }
+
+    .contact-info i {
+        color: var(--secondary-color);
+        width: 20px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+    }
+
+    .scroll-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--gradient-2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        box-shadow: var(--shadow-md);
+        z-index: 999;
+    }
+
+    .scroll-top.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .scroll-top:hover {
+        transform: translateY(-5px);
+    }
+
+    @media (max-width: 768px) {
+        .nav-menu {
+            position: fixed;
+            left: -100%;
+            top: 70px;
+            flex-direction: column;
+            background: var(--white);
+            width: 100%;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: var(--shadow-lg);
+            padding: 2rem 0;
+            gap: 0;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-menu li {
+            margin: 1.5rem 0;
+            width: 100%;
+        }
+
+        .dropdown-content {
+            position: static;
+            box-shadow: none;
+            margin-top: 0.5rem;
+            transform: none;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+
+        .service-hero h1 {
+            font-size: 2rem;
+        }
+
+        .service-hero p {
+            font-size: 1rem;
+        }
+
+        .overview-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <div class="nav-wrapper">
+            <div class="logo">
+                <div class="logo-icon">U</div>
+                <div class="logo-text">
+                    <h2>UGANE</h2>
+                    <span>Business Services</span>
+                </div>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn active">Services <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="food-export.html"><i class="fas fa-shipping-fast"></i> Food Exportation</a>
+                        <a href="real-estate.html"><i class="fas fa-building"></i> Real Estate</a>
+                        <a href="hospitality.html"><i class="fas fa-hotel"></i> Hospitality</a>
+                        <a href="interior.html"><i class="fas fa-paint-roller"></i> Interior Decoration</a>
+                        <a href="household.html"><i class="fas fa-couch"></i> Household Equipment</a>
+                        <a href="wellness.html"><i class="fas fa-spa"></i> Health & Wellness</a>
+                        <a href="perfumes.html"><i class="fas fa-spray-can"></i> Perfumes</a>
+                        <a href="fashion.html"><i class="fas fa-tshirt"></i> Fashion & Wears</a>
+                    </div>
+                </li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="service-hero">
+    <div class="container">
+        <div class="service-hero-content">
+            <div class="service-badge">
+                <i class="fas fa-spa"></i> Health & Wellness Products
+            </div>
+            <h1>Health & Wellness Products</h1>
+            <p>Curated selection of premium health supplements, wellness products, spa equipment, and fitness gear to support your journey to optimal health and vitality.</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn btn-primary">
+                    <span>View Products</span>
+                    <i class="fas fa-arrow-down"></i>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                    <span>Get Catalog</span>
+                    <i class="fas fa-download"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-overview">
+    <div class="container">
+        <div class="overview-grid">
+            <div class="overview-image">
+                <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600" alt="Health & Wellness">
+            </div>
+            <div class="overview-content">
+                <h2>Your Path to Wellness</h2>
+                <p>UGANE Health & Wellness Division offers a comprehensive range of premium health products, spa equipment, and fitness solutions imported from trusted global brands.</p>
+                <p>From nutritional supplements and organic products to professional spa equipment and home fitness gear, we provide everything you need to maintain a healthy lifestyle and establish wellness facilities.</p>
+                <div class="overview-features">
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Certified Authentic Health Products</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Professional Spa & Wellness Equipment</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Premium Fitness & Exercise Gear</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Wholesale & Retail Options Available</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="services-section" id="services">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">Product Categories</div>
+            <h2>Wellness Product Range</h2>
+            <p>Complete solutions for health and wellness</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=400" alt="Supplements" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Nutrition</span>
+                    <h3>Health Supplements</h3>
+                    <p>Premium vitamins, minerals, protein powders, and nutritional supplements from trusted international brands.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">Vitamins</span>
+                        <span class="service-feature-tag">Minerals</span>
+                        <span class="service-feature-tag">Protein</span>
+                    </div>
+                    <a href="contact.html" class="service-link">View Catalog <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400" alt="Fitness Equipment" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Fitness</span>
+                    <h3>Fitness Equipment</h3>
+                    <p>Treadmills, exercise bikes, dumbbells, yoga mats, and complete home gym equipment for all fitness levels.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">Cardio</span>
+                        
+
+<span class="service-feature-tag"Strength</span>
+
+ <span class="service-feature-tag">Yoga</span>
+                    </div>
+                    <a href="contact.html" class="service-link">View Catalog <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400" alt="Spa Equipment" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Spa</span>
+                    <h3>Spa Equipment</h3>
+                    <p>Professional spa beds, massage tables, facial steamers, and complete spa setup solutions for wellness centers.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">Massage Tables</span>
+                        <span class="service-feature-tag">Facial Equipment</span>
+                        <span class="service-feature-tag">Spa Beds</span>
+                    </div>
+                    <a href="contact.html" class="service-link">View Catalog <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=400" alt="Wellness Devices" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Technology</span>
+                    <h3>Wellness Devices</h3>
+                    <p>Smart scales, fitness trackers, blood pressure monitors, and advanced health monitoring devices.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">Trackers</span>
+                        <span class="service-feature-tag">Monitors</span>
+                        <span class="service-feature-tag">Smart Tech</span>
+                    </div>
+                    <a href="contact.html" class="service-link">View Catalog <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1600334129128-685c5582fd35?w=400" alt="Organic Products" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Organic</span>
+                    <h3>Organic Products</h3>
+                    <p>Certified organic foods, herbal teas, natural remedies, and chemical-free wellness products.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">Certified</span>
+                        <span class="service-feature-tag">Natural</span>
+                        <span class="service-feature-tag">Herbal</span>
+                    </div>
+                    <a href="contact.html" class="service-link">View Catalog <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400" alt="Personal Care" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Care</span>
+                    <h3>Personal Care Products</h3>
+                    <p>Natural skincare, aromatherapy oils, essential oils, and personal wellness care items.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">Skincare</span>
+                        <span class="service-feature-tag">Aromatherapy</span>
+                        <span class="service-feature-tag">Natural</span>
+                    </div>
+                    <a href="contact.html" class="service-link">View Catalog <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="container">
+        <h2 style="margin-bottom: 1rem;">Our Wellness Impact</h2>
+        <p style="opacity: 0.9; margin-bottom: 3rem;">Committed to your health journey</p>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-box-open"></i></div>
+                <div class="stat-number" data-target="3000">0</div>
+                <div class="stat-label">Products Range</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-number" data-target="10000">0</div>
+                <div class="stat-label">Satisfied Customers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-certificate"></i></div>
+                <div class="stat-number" data-target="100">0</div>
+                <div class="stat-label">% Authentic Products</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-handshake"></i></div>
+                <div class="stat-number" data-target="30">0</div>
+                <div class="stat-label">Brand Partners</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <h2>Start Your Wellness Journey Today</h2>
+        <p>Discover our complete range of health and wellness products</p>
+        <a href="contact.html" class="btn btn-light">
+            <span>Request Catalog</span>
+            <i class="fas fa-paper-plane"></i>
+        </a>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>UGANE Business Services</h3>
+                <p>Your trusted partner across multiple industries, delivering excellence and quality in everything we do.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html"><i class="fas fa-angle-right"></i> About Us</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-angle-right"></i> Gallery</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="food-export.html"><i class="fas fa-angle-right"></i> Food Exportation</a></li>
+                    <li><a href="real-estate.html"><i class="fas fa-angle-right"></i> Real Estate</a></li>
+                    <li><a href="hospitality.html"><i class="fas fa-angle-right"></i> Hospitality</a></li>
+                    <li><a href="interior.html"><i class="fas fa-angle-right"></i> Interior Decoration</a></li>
+                    <li><a href="household.html"><i class="fas fa-angle-right"></i> Household Equipment</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> Victoria Island, Lagos, Nigeria</li>
+                    <li><i class="fas fa-phone"></i> +234 (0) 123 456 7890</li>
+                    <li><i class="fas fa-envelope"></i> info@uganebusiness.com</li>
+                    <li><i class="fas fa-clock"></i> Mon - Sat: 8:00 AM - 6:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 UGANE Business Services. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            document.getElementById('preloader').classList.add('hidden');
+        }, 1000);
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    });
+
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('navbar');
+        const scrollTop = document.getElementById('scrollTop');
+        
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+
+        if (window.scrollY > 300) {
+            scrollTop.classList.add('show');
+        } else {
+            scrollTop.classList.remove('show');
+        }
+    });
+
+    document.getElementById('scrollTop').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    function animateCounter(element, target, duration) {
+        let current = 0;
+        const increment = target / (duration / 16);
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = target + (target === 100 ? '%' : '+');
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current);
+            }
+        }, 16);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.getAttribute('data-target'));
+                animateCounter(entry.target, target, 2000);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-number').forEach(counter => {
+        counterObserver.observe(counter);
+    });
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.service-card').forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(element);
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - UGANE BUSINESS SERVICES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #e94560;
+            --accent-color: #0f3460;
+            --gold-color: #ffa500;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.08);
+            --shadow-md: 0 5px 25px rgba(0,0,0,0.12);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* PRELOADER */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* NAVIGATION */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo-text h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--secondary-color);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-menu li a {
+            color: var(--text-dark);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--gradient-2);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-menu li a:hover::after,
+        .nav-menu li a.active::after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropbtn {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
+        }
+
+        .dropbtn i {
+            font-size: 0.7rem;
+            transition: var(--transition);
+        }
+
+        .dropdown:hover .dropbtn i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            min-width: 240px;
+            box-shadow: var(--shadow-lg);
+            border-radius: 15px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 1.5rem;
+            color: var(--text-dark);
+            border-bottom: 1px solid #f0f0f0;
+            transition: var(--transition);
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a i {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+        }
+
+        .dropdown-content a:hover {
+            background: var(--bg-light);
+            padding-left: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary-color);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        /* PAGE HEADER */
+        .page-header {
+            background: var(--gradient-1);
+            padding: 150px 0 100px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            animation: fadeInUp 1s ease;
+        }
+
+        .page-header p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease 0.3s backwards;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            animation: fadeInUp 1s ease 0.6s backwards;
+        }
+
+        .breadcrumb a {
+            color: var(--white);
+            opacity: 0.8;
+        }
+
+        .breadcrumb a:hover {
+            opacity: 1;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ABOUT SECTION */
+        section {
+            padding: 6rem 0;
+        }
+
+        .about-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 6rem;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .about-text p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: var(--gradient-2);
+            border-radius: 20px;
+            z-index: -1;
+        }
+
+        /* MISSION VISION */
+        .mission-vision {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin: 6rem 0;
+        }
+
+        .mv-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-md);
+            text-align: center;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mv-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-1);
+        }
+
+        .mv-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mv-card i {
+            font-size: 4rem;
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+
+        .mv-card h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .mv-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        /* CORE VALUES */
+        .core-values {
+            background: var(--bg-light);
+            padding: 6rem 0;
+            margin: 6rem 0;
+            border-radius: 20px;
+        }
+
+        .core-values h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 3rem;
+            font-weight: 800;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .value-item {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition);
+        }
+
+        .value-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .value-item i {
+            font-size: 3rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .value-item h4 {
+            font-size: 1.3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+	    
+font-weight: 700;
+        }
+
+    .value-item p {
+        color: var(--text-light);
+        line-height: 1.8;
+    }
+
+    /* TEAM SECTION */
+    .team-section {
+        background: var(--white);
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .section-badge {
+        display: inline-block;
+        background: var(--gradient-2);
+        color: var(--white);
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .section-header h2 {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-weight: 800;
+    }
+
+    .section-header p {
+        font-size: 1.1rem;
+        color: var(--text-light);
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 3rem;
+    }
+
+    .team-member {
+        background: var(--white);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+        text-align: center;
+    }
+
+    .team-member:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .team-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        position: relative;
+    }
+
+    .team-info {
+        padding: 2rem;
+    }
+
+    .team-info h4 {
+        font-size: 1.4rem;
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+        font-weight: 700;
+    }
+
+    .team-info .role {
+        color: var(--secondary-color);
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .team-info p {
+        color: var(--text-light);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+
+    .team-social {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .team-social a {
+        width: 40px;
+        height: 40px;
+        background: var(--bg-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+    }
+
+    .team-social a:hover {
+        background: var(--gradient-2);
+        color: var(--white);
+        transform: translateY(-3px);
+    }
+
+    /* TIMELINE */
+    .timeline-section {
+        background: var(--bg-light);
+        padding: 6rem 0;
+    }
+
+    .timeline {
+        position: relative;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .timeline::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 100%;
+        background: var(--gradient-1);
+    }
+
+    .timeline-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 4rem;
+        position: relative;
+    }
+
+    .timeline-item:nth-child(even) {
+        flex-direction: row-reverse;
+    }
+
+    .timeline-content {
+        width: 45%;
+        background: var(--white);
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow-md);
+        transition: var(--transition);
+    }
+
+    .timeline-content:hover {
+        transform: scale(1.05);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .timeline-year {
+        font-size: 2rem;
+        font-weight: 800;
+        background: var(--gradient-2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 1rem;
+    }
+
+    .timeline-content h4 {
+        color: var(--primary-color);
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .timeline-content p {
+        color: var(--text-light);
+        line-height: 1.8;
+    }
+
+    .timeline-dot {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 20px;
+        height: 20px;
+        background: var(--secondary-color);
+        border-radius: 50%;
+        border: 4px solid var(--white);
+        box-shadow: var(--shadow-sm);
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+        background: var(--gradient-2);
+        color: var(--white);
+        text-align: center;
+        padding: 6rem 0;
+    }
+
+    .cta-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+    }
+
+    .cta-section p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.95;
+    }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 1rem 2.5rem;
+        border-radius: 50px;
+        font-weight: 600;
+        transition: var(--transition);
+        cursor: pointer;
+        border: 2px solid transparent;
+        font-size: 1rem;
+    }
+
+    .btn-light {
+        background: var(--white);
+        color: var(--primary-color);
+        box-shadow: var(--shadow-md);
+    }
+
+    .btn-light:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+    }
+
+   /* FOOTER - Modern Design */
+    .footer {
+        background: var(--primary-color);
+        color: var(--white);
+        padding: 4rem 0 2rem;
+        position: relative;
+    }
+
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-2);
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-col h3,
+    .footer-col h4 {
+        margin-bottom: 1.5rem;
+        color: var(--white);
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    .footer-col p {
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-col ul li a {
+        color: rgba(255,255,255,0.8);
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .footer-col ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .social-links a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        font-size: 1.1rem;
+    }
+
+    .social-links a:hover {
+        background: var(--secondary-color);
+        transform: translateY(-5px) rotate(360deg);
+    }
+
+    .contact-info li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1rem;
+        transition: var(--transition);
+    }
+
+    .contact-info li:hover {
+        color: var(--white);
+        padding-left: 5px;
+    }
+
+    .contact-info i {
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+        width: 20px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+    }
+    /* SCROLL TO TOP */
+    .scroll-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--gradient-2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        box-shadow: var(--shadow-md);
+        z-index: 999;
+    }
+
+    .scroll-top.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .scroll-top:hover {
+        transform: translateY(-5px);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+        .nav-menu {
+            position: fixed;
+            left: -100%;
+            top: 70px;
+            flex-direction: column;
+            background: var(--white);
+            width: 100%;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: var(--shadow-lg);
+            padding: 2rem 0;
+            gap: 0;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-menu li {
+            margin: 1.5rem 0;
+            width: 100%;
+        }
+
+        .dropdown-content {
+            position: static;
+            box-shadow: none;
+            margin-top: 0.5rem;
+            transform: none;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+
+        .page-header h1 {
+            font-size: 2rem;
+        }
+
+        .page-header p {
+            font-size: 1rem;
+        }
+
+        .about-intro {
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .mission-vision {
+            grid-template-columns: 1fr;
+        }
+
+        .timeline::before {
+            left: 0;
+        }
+
+        .timeline-item {
+            flex-direction: column !important;
+            align-items: flex-start;
+        }
+
+        .timeline-content {
+            width: 100%;
+            margin-left: 30px;
+        }
+
+        .timeline-dot {
+            left: 0;
+        }
+
+        .team-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
+<!-- Navigation -->
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <div class="nav-wrapper">
+            <div class="logo">
+                <div class="logo-icon">U</div>
+                <div class="logo-text">
+                    <h2>UGANE</h2>
+                    <span>Business Services</span>
+                </div>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html" class="active">About</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Services <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="food-export.html"><i class="fas fa-shipping-fast"></i> Food Exportation</a>
+                        <a href="real-estate.html"><i class="fas fa-building"></i> Real Estate</a>
+                        <a href="hospitality.html"><i class="fas fa-hotel"></i> Hospitality</a>
+                        <a href="interior.html"><i class="fas fa-paint-roller"></i> Interior Decoration</a>
+                        <a href="household.html"><i class="fas fa-couch"></i> Household Equipment</a>
+                        <a href="wellness.html"><i class="fas fa-spa"></i> Health & Wellness</a>
+                        <a href="perfumes.html"><i class="fas fa-spray-can"></i> Perfumes</a>
+                        <a href="fashion.html"><i class="fas fa-tshirt"></i> Fashion & Wears</a>
+                    </div>
+                </li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Page Header -->
+<section class="page-header">
+    <div class="container">
+        <h1>About UGANE Business Services</h1>
+        <p>Excellence, Innovation, and Trust Since Inception</p>
+        
+    </div>
+</section>
+
+<!-- About Intro -->
+<section>
+    <div class="container">
+        <div class="about-intro">
+            <div class="about-text">
+                <h2>Who We Are</h2>
+                <p>UGANE Business Services is a diversified conglomerate operating across eight major business sectors. We pride ourselves on delivering exceptional quality, innovative solutions, and unmatched customer service across all our divisions.</p>
+                
+
+<pFrom exporting premium food products to developing real estate properties, managing hospitality services, and importing luxury goods, UGANE has establishe
+d itself as a trusted partner for businesses and individuals alike.</p>
+                    <p>Our commitment to excellence and customer satisfaction has made us a leader in the Nigerian business landscape, with operations extending across multiple continents.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600" alt="About UGANE">
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- Mission & Vision -->
+<section>
+    <div class="container">
+        <div class="mission-vision">
+            <div class="mv-card">
+                <i class="fas fa-bullseye"></i>
+                <h3>Our Mission</h3>
+                <p>To provide world-class products and services across multiple industries while maintaining the highest standards of quality, integrity, and customer satisfaction. We aim to be the bridge between international excellence and local needs.</p>
+            </div>
+            <div class="mv-card">
+                <i class="fas fa-eye"></i>
+                <h3>Our Vision</h3>
+                <p>To become the leading diversified business services provider in Nigeria and beyond, recognized for excellence, innovation, and positive impact on communities. We envision a future where UGANE is synonymous with trust and quality.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Core Values -->
+<section>
+    <div class="container">
+        <div class="core-values">
+            <div class="container">
+                <h2>Our Core Values</h2>
+                <div class="values-grid">
+                    <div class="value-item">
+                        <i class="fas fa-star"></i>
+                        <h4>Excellence</h4>
+                        <p>We strive for excellence in every aspect of our business operations, delivering superior quality consistently</p>
+                    </div>
+                    <div class="value-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Integrity</h4>
+                        <p>We conduct business with the highest ethical standards and transparency in all our dealings</p>
+                    </div>
+                    <div class="value-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <h4>Innovation</h4>
+                        <p>We embrace innovation and continuously seek new ways to improve our services and products</p>
+                    </div>
+                    <div class="value-item">
+                        <i class="fas fa-handshake"></i>
+                        <h4>Partnership</h4>
+                        <p>We build lasting relationships with our clients, suppliers, and stakeholders based on mutual respect</p>
+                    </div>
+                    <div class="value-item">
+                        <i class="fas fa-users"></i>
+                        <h4>Customer Focus</h4>
+                        <p>Our customers are at the heart of everything we do, and their satisfaction is our priority</p>
+                    </div>
+                    <div class="value-item">
+                        <i class="fas fa-balance-scale"></i>
+                        <h4>Sustainability</h4>
+                        <p>We are committed to sustainable business practices that benefit our community and environment</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="team-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge">Our Team</div>
+            <h2>Meet Our Leadership</h2>
+            <p>Experienced professionals dedicated to driving excellence across all divisions</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" alt="CEO" class="team-image">
+                <div class="team-info">
+                    <h4>Adekunle Williams</h4>
+                    <p class="role">Chief Executive Officer</p>
+                    <p>With over 20 years of experience in international business, Adekunle leads UGANE with vision and strategic excellence.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400" alt="COO" class="team-image">
+                <div class="team-info">
+                    <h4>Folake Okonkwo</h4>
+                    <p class="role">Chief Operating Officer</p>
+                    <p>Folake oversees all operational aspects ensuring seamless delivery of services across all business divisions.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400" alt="CFO" class="team-image">
+                <div class="team-info">
+                    <h4>Chukwudi Nwankwo</h4>
+                    <p class="role">Chief Financial Officer</p>
+                    <p>Chukwudi brings financial expertise and strategic planning to ensure sustainable growth and profitability.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Timeline -->
+<section class="timeline-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge">Our Journey</div>
+            <h2>Company Timeline</h2>
+            <p>Milestones that shaped our success story</p>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2010</div>
+                    <h4>Company Founded</h4>
+                    <p>UGANE Business Services was established with a vision to provide exceptional business solutions across multiple sectors.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2013</div>
+                    <h4>International Expansion</h4>
+                    <p>Expanded operations to include food exportation, reaching markets across West Africa and Europe.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2016</div>
+                    <h4>Diversification</h4>
+                    <p>Added real estate, hospitality, and interior decoration divisions to our portfolio of services.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2019</div>
+                    <h4>Import Excellence</h4>
+                    <p>Launched perfume and fashion import divisions, bringing luxury brands to Nigerian market.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2025</div>
+                    <h4>Industry Leader</h4>
+                    <p>Recognized as one of Nigeria's leading diversified business services providers with 500+ satisfied clients.</p>
+                </div>
+                <div class="timeline-dot"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Join Our Success Story</h2>
+        <p>Partner with UGANE and experience the difference that excellence makes</p>
+        <a href="contact.html" class="btn btn-light">
+            <span>Get In Touch</span>
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</section>
+
+<!-- Footer -->
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>UGANE Business Services</h3>
+                <p>Your trusted partner across multiple industries, delivering excellence and quality in everything we do.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html"><i class="fas fa-angle-right"></i> About Us</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-angle-right"></i> Gallery</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="food-export.html"><i class="fas fa-angle-right"></i> Food Exportation</a></li>
+                    <li><a href="real-estate.html"><i class="fas fa-angle-right"></i> Real Estate</a></li>
+                    <li><a href="hospitality.html"><i class="fas fa-angle-right"></i> Hospitality</a></li>
+                    <li><a href="interior.html"><i class="fas fa-angle-right"></i> Interior Decoration</a></li>
+                    <li><a href="household.html"><i class="fas fa-angle-right"></i> Household Equipment</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> Victoria Island, Lagos, Nigeria</li>
+                    <li><i class="fas fa-phone"></i> +234 (0) 123 456 7890</li>
+                    <li><i class="fas fa-envelope"></i> info@uganebusiness.com</li>
+                    <li><i class="fas fa-clock"></i> Mon - Sat: 8:00 AM - 6:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 UGANE Business Services. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Scroll to Top -->
+<div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+    // Preloader
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            document.getElementById('preloader').classList.add('hidden');
+        }, 1000);
+    });
+
+    // Hamburger Menu
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    });
+
+    // Navbar Scroll Effect
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('navbar');
+        const scrollTop = document.getElementById('scrollTop');
+        
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+
+        if (window.scrollY > 300) {
+            scrollTop.classList.add('show');
+        } else {
+            scrollTop.classList.remove('show');
+        }
+    });
+
+    // Scroll to Top
+    document.getElementById('scrollTop').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Intersection Observer
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.value-item, .team-member, .timeline-item, .mv-card').forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(element);
+    });
+</script>
+
+</body>
+</html>

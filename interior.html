@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Interior Decoration - UGANE Business Services</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reuse same tokens and global styles as index.html */
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --primary-color:#1a1a2e;
+            --secondary-color:#e94560;
+            --accent-color:#0f3460;
+            --text-dark:#2d3436;
+            --text-light:#636e72;
+            --bg-light:#f8f9fa;
+            --white:#ffffff;
+            --gradient-1: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            --gradient-2: linear-gradient(135deg,#f093fb 0%,#f5576c 100%);
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.08);
+            --shadow-md: 0 5px 25px rgba(0,0,0,0.12);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+        }
+
+        body{font-family:'Poppins',sans-serif;line-height:1.6;color:var(--text-dark);overflow-x:hidden;background:var(--bg-light)}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        img{max-width:100%;height:auto;display:block}
+        a{text-decoration:none;color:inherit;transition:var(--transition)}
+        ul{list-style:none}
+
+        /* PRELOADER */
+        .preloader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--primary-color);display:flex;align-items:center;justify-content:center;z-index:10000;transition:opacity .5s,visibility .5s}
+        .preloader.hidden{opacity:0;visibility:hidden}
+        .loader{width:60px;height:60px;border:4px solid rgba(255,255,255,0.2);border-top:4px solid var(--secondary-color);border-radius:50%;animation:spin 1s linear infinite}
+        @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+
+        /* NAV */
+        .navbar{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);box-shadow:var(--shadow-sm);position:fixed;top:0;width:100%;z-index:1000;transition:var(--transition)}
+        .navbar.scrolled{background:rgba(255,255,255,0.98);box-shadow:var(--shadow-md)}
+        .nav-wrapper{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
+        .logo{display:flex;align-items:center;gap:10px}
+        .logo-icon{width:50px;height:50px;background:var(--gradient-2);border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.5rem;font-weight:bold;box-shadow:var(--shadow-sm)}
+        .logo-text h2{color:var(--primary-color);font-size:1.5rem;font-weight:700}
+        .logo-text span{color:var(--secondary-color);font-size:.65rem;text-transform:uppercase;letter-spacing:2px;font-weight:600}
+        .nav-menu{display:flex;gap:2.5rem;align-items:center}
+        .nav-menu li a{color:var(--text-dark);font-weight:500;padding:.5rem 0;position:relative;font-size:.95rem}
+        .nav-menu li a:hover,.nav-menu li a.active{color:var(--secondary-color)}
+        .nav-menu li a::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:3px;background:var(--gradient-2);border-radius:2px;transition:var(--transition)}
+        .nav-menu li a:hover::after,.nav-menu li a.active::after{width:100%}
+        .dropdown{position:relative}
+        .dropbtn{display:flex;align-items:center;gap:.3rem;cursor:pointer}
+        .dropbtn i{font-size:.7rem;transition:var(--transition)}
+        .dropdown:hover .dropbtn i{transform:rotate(180deg)}
+        .dropdown-content{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:var(--white);min-width:240px;box-shadow:var(--shadow-lg);border-radius:15px;margin-top:1rem;overflow:hidden}
+        .dropdown-content a{display:flex;align-items:center;gap:10px;padding:1rem 1.5rem;color:var(--text-dark);border-bottom:1px solid #f0f0f0;transition:var(--transition)}
+        .dropdown-content a:last-child{border-bottom:none}
+        .dropdown-content a i{font-size:1.1rem;color:var(--secondary-color)}
+        .dropdown-content a:hover{background:var(--bg-light);padding-left:2rem;color:var(--secondary-color)}
+        .dropdown:hover .dropdown-content{display:block}
+        .hamburger{display:none;flex-direction:column;cursor:pointer;gap:5px;z-index:1001}
+        .hamburger span{width:28px;height:3px;background:var(--primary-color);transition:var(--transition);border-radius:2px}
+        .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
+        .hamburger.active span:nth-child(2){opacity:0}
+        .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(8px,-8px)}
+
+        /* HERO */
+        .service-hero{background:linear-gradient(135deg,rgba(102,126,234,0.9),rgba(118,75,162,0.9)),url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200') center/cover;min-height:65vh;display:flex;align-items:center;position:relative;color:var(--white);padding-top:80px}
+        .service-hero::before{content:'';position:absolute;bottom:0;left:0;right:0;height:100px;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;background-size:cover}
+        .service-hero-content{position:relative;z-index:2;padding:60px 0}
+        .service-badge{display:inline-block;background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);padding:.7rem 2rem;border-radius:50px;font-size:.9rem;margin-bottom:1.5rem;font-weight:600}
+        .service-hero h1{font-size:2.8rem;margin-bottom:1rem;font-weight:800;line-height:1.1}
+        .service-hero p{font-size:1.05rem;margin-bottom:1.5rem;opacity:.95;max-width:800px}
+
+        /* INTERIOR CONTENT */
+        .service-overview{padding:6rem 0;background:var(--white)}
+        .overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5rem;align-items:center}
+        .overview-image img{border-radius:18px;box-shadow:var(--shadow-lg)}
+        .overview-content h2{font-size:2rem;color:var(--primary-color);margin-bottom:1rem;font-weight:800}
+        .overview-content p{color:var(--text-light);margin-bottom:1rem;line-height:1.8;font-size:1rem}
+        .overview-features{margin-top:1.5rem;display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+        .feature-check{display:flex;align-items:center;gap:1rem;padding:1rem;border-radius:10px;background:var(--bg-light)}
+        .feature-check i{color:var(--secondary-color);font-size:1.3rem}
+
+        /* PROJECTS GRID */
+        .projects-section{padding:5rem 0;background:var(--bg-light)}
+        .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem}
+        .project-card{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);transition:var(--transition);cursor:pointer}
+        .project-card:hover{transform:translateY(-10px);box-shadow:var(--shadow-lg)}
+        .project-image{width:100%;height:260px;object-fit:cover;display:block}
+        .project-info{padding:1.2rem}
+        .project-info h3{margin:0 0 .5rem;color:var(--primary-color)}
+        .project-info p{margin:0;color:var(--text-light)}
+
+        /* SERVICES LIST */
+        .services-list{display:flex;flex-direction:column;gap:1rem;margin-top:1.5rem}
+        .service-item{background:var(--white);padding:1rem;border-radius:10px;box-shadow:var(--shadow-sm);display:flex;gap:1rem;align-items:center}
+        .service-item i{background:var(--gradient-2);color:#fff;padding:12px;border-radius:12px}
+
+      /* Stats, CTA & Footer reuse */
+        .stats-section{background:var(--gradient-1);color:var(--white);padding:4rem 0;text-align:center}
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem;margin-top:2rem}
+        .stat-item{text-align:center}
+        .stat-number{font-size:2.5rem;font-weight:800;margin-bottom:.5rem}
+        .stat-label{font-size:1rem;opacity:.95}
+
+        /* CTA SECTION - Modern Gradient */
+    .cta-section {
+        background: var(--gradient-2);
+        color: var(--white);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        animation: pulse 15s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .cta-section h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+    }
+
+    .cta-section p {
+        font-size: 1.3rem;
+        margin-bottom: 2.5rem;
+        opacity: 0.95;
+    }
+
+         /* FOOTER - Modern Design */
+    .footer {
+        background: var(--primary-color);
+        color: var(--white);
+        padding: 4rem 0 2rem;
+        position: relative;
+    }
+
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-2);
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-col h3,
+    .footer-col h4 {
+        margin-bottom: 1.5rem;
+        color: var(--white);
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    .footer-col p {
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-col ul li a {
+        color: rgba(255,255,255,0.8);
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .footer-col ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .social-links a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        font-size: 1.1rem;
+    }
+
+    .social-links a:hover {
+        background: var(--secondary-color);
+        transform: translateY(-5px) rotate(360deg);
+    }
+
+    .contact-info li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1rem;
+        transition: var(--transition);
+    }
+
+    .contact-info li:hover {
+        color: var(--white);
+        padding-left: 5px;
+    }
+
+    .contact-info i {
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+        width: 20px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+    }
+
+        .scroll-top{position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:var(--gradient-2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--white);cursor:pointer;opacity:0;visibility:hidden;transition:var(--transition);box-shadow:var(--shadow-md);z-index:999}
+        .scroll-top.show{opacity:1;visibility:visible}
+        .scroll-top:hover{transform:translateY(-5px)}
+
+        @media(max-width:768px){
+            .nav-menu{position:fixed;left:-100%;top:70px;flex-direction:column;background:var(--white);width:100%;text-align:center;transition:.3s;box-shadow:var(--shadow-lg);padding:2rem 0;gap:0;height:calc(100vh - 70px);overflow-y:auto}
+            .nav-menu.active{left:0}
+            .hamburger{display:flex}
+            .service-hero{min-height:50vh}
+            .gallery-image{height:200px}
+        }
+
+ /* BUTTONS - Modern 3D Effect */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            font-size: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3
+px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+    .btn-secondary {
+        background: transparent;
+        color: var(--white);
+        border-color: var(--white);
+    }
+
+    .btn-secondary:hover {
+        background: var(--white);
+        color: var(--primary-color);
+        transform: translateY(-3px);
+    }
+
+    .btn-light {
+        background: var(--white);
+        color: var(--primary-color);
+        box-shadow: var(--shadow-md);
+    }
+
+    .btn-light:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+    }
+
+   /* PROCESS SECTION */
+    .process-section {
+        padding: 6rem 0;
+        background: var(--white);
+    }
+
+    .process-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-top: 3rem;
+    }
+
+    .process-step {
+        text-align: center;
+        position: relative;
+    }
+
+    .process-step::after {
+        content: '';
+        position: absolute;
+        top: 50px;
+        right: -50%;
+        width: 100%;
+        height: 3px;
+        background: var(--gradient-1);
+        z-index: -1;
+    }
+
+    .process-step:last-child::after {
+        display: none;
+    }
+
+    .process-number {
+        width: 100px;
+        height: 100px;
+        background: var(--gradient-1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1.5rem;
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--white);
+        box-shadow: var(--shadow-md);
+        position: relative;
+    }
+
+    .process-step h3 {
+        font-size: 1.3rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .process-step p {
+        color: var(--text-light);
+        line-height: 1.8;
+    }
+  /* FAQ SECTION */
+    .faq-section {
+        padding: 6rem 0;
+        background: var(--white);
+    }
+
+    .faq-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .faq-item {
+        background: var(--white);
+        margin-bottom: 1.5rem;
+        border-radius: 15px;
+        box-shadow: var(--shadow-sm);
+        overflow: hidden;
+    }
+
+    .faq-question {
+        padding: 1.5rem 2rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: var(--bg-light);
+        transition: var(--transition);
+    }
+
+    .faq-question:hover {
+        background: var(--gradient-2);
+        color: var(--white);
+    }
+
+    .faq-question h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .faq-question i {
+        font-size: 1.2rem;
+        transition: var(--transition);
+    }
+
+    .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 500px;
+    }
+
+    .faq-answer p {
+        padding: 2rem;
+        color: var(--text-light);
+        line-height: 1.8;
+    }
+
+    </style>
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <div class="logo-icon">U</div>
+                    <div class="logo-text">
+                        <h2>UGANE</h2>
+                        <span>Business Services</span>
+                    </div>
+                </div>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn active">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="food-export.html"><i class="fas fa-shipping-fast"></i> Food Exportation</a>
+                            <a href="real-estate.html"><i class="fas fa-building"></i> Real Estate</a>
+                            <a href="hospitality.html"><i class="fas fa-hotel"></i> Hospitality</a>
+                            <a href="interior.html"><i class="fas fa-paint-roller"></i> Interior Decoration</a>
+                            <a href="household.html"><i class="fas fa-couch"></i> Household Equipment</a>
+                            <a href="wellness.html"><i class="fas fa-spa"></i> Health & Wellness</a>
+                            <a href="perfumes.html"><i class="fas fa-spray-can"></i> Perfumes</a>
+                            <a href="fashion.html"><i class="fas fa-tshirt"></i> Fashion & Wears</a>
+                        </div>
+                    </li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+
+                <div class="hamburger" id="hamburger" aria-label="Toggle menu" role="button">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="service-hero">
+        <div class="container">
+            <div class="service-hero-content">
+                <div class="service-badge"><i class="fas fa-paint-roller"></i> Interior Decoration</div>
+                <h1>Bespoke Interior Design & Decoration</h1>
+                <p>We create functional and beautiful interior spaces for homes, offices, and hospitality venues — blending aesthetics with practicality for every project.</p>
+                <div style="margin-top:1.25rem">
+                    <a href="#projects" class="btn btn-primary" style="background:var(--white);color:var(--primary-color;padding:10px 18px;border-radius:999px;font-weight:700;display:inline-flex;align-items:center;gap:.6rem">See Projects <i class="fas fa-arrow-down"></i></a>
+                    <a href="contact.html" class="btn" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.3);padding:10px 18px;border-radius:999px;font-weight:700;margin-left:10px">Request Quote <i class="fas fa-handshake"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- OVERVIEW -->
+    <section class="service-overview">
+        <div class="container">
+            <div class="overview-grid">
+                <div class="overview-image">
+                    <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=900" alt="Interior project">
+                </div>
+                <div class="overview-content">
+                    <h2>Transforming Spaces, Creating Experiences</h2>
+                    <p>UGANE Interior Division offers full-service interior design and decoration, from concept development and space planning to procurement and project management. Our team works with clients to deliver tailored interiors that reflect brand identity, lifestyle, and functionality.</p>
+                    <p>We handle residential, commercial, and hospitality projects — coordinating with trusted suppliers and craftsmen to ensure quality finishes and timely delivery.</p>
+
+<p style="color:var(--text-light);margin-top:.6rem">
+    UGANE's interior design services include residential interior design, commercial fit-outs, hospitality design, bespoke furniture design, and full project management. Our design approach balances aesthetics, functionality and value — helping clients achieve beautiful interiors that perform well in everyday use.
+</p>
+                    <div class="overview-features">
+                        <div class="feature-check">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Space Planning & Layouts</strong>
+                                <div style="color:var(--text-light)">Optimized layouts for form and function.</div>
+                            </div>
+                        </div>
+
+                        <div class="feature-check">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+
+                        <div class="feature-check">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Furniture & Finish Selection</strong>
+                                <div style="color:var(--text-light)">Curated pieces and materials to suit every budget.</div>
+                            </div>
+                        </div>
+
+                        <div class="feature-check">
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Project Management</strong>
+                                <div style="color:var(--text-light)">End-to-end coordination from procurement to installation.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- PROCESS -->
+<section style="padding:2rem 0 0;background:var(--white)">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:1rem">
+            <h2 style="color:var(--primary-color);margin-bottom:.25rem">Our Process</h2>
+            <p style="color:var(--text-light);max-width:700px;margin:0 auto">A simple, transparent process to bring your interior vision to life.</p>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:1.25rem">
+            <div class="feature-check" style="flex-direction:column;align-items:flex-start;">
+                <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
+                    <i class="fas fa-comments" style="font-size:1.2rem;color:var(--secondary-color)"></i>
+                    <strong>Consultation</strong>
+                </div>
+                <div style="color:var(--text-light)">We start with discovery to understand your needs, budget and timeline.</div>
+            </div>
+
+            <div class="feature-check" style="flex-direction:column;align-items:flex-start;">
+                <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
+                    <i class="fas fa-pencil-ruler" style="font-size:1.2rem;color:var(--secondary-color)"></i>
+                    <strong>Design & Quote</strong>
+                </div>
+                <div style="color:var(--text-light)">Concepts, moodboards and a clear cost estimate are prepared.</div>
+            </div>
+
+            <div class="feature-check" style="flex-direction:column;align-items:flex-start;">
+                <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
+                    <i class="fas fa-cubes" style="font-size:1.2rem;color:var(--secondary-color)"></i>
+                    <strong>Procurement</strong>
+                </div>
+                <div style="color:var(--text-light)">We source finishes and furniture from vetted suppliers and partners.</div>
+            </div>
+
+            <div class="feature-check" style="flex-direction:column;align-items:flex-start;">
+                <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.5rem">
+                    <i class="fas fa-tools" style="font-size:1.2rem;color:var(--secondary-color)"></i>
+                    <strong>Installation & Handover</strong>
+                </div>
+                <div style="color:var(--text-light)">Our team manages installation and performs quality checks prior to handover.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- PROJECTS -->
+    <section class="projects-section" id="projects">
+        <div class="container">
+            <div style="text-align:center;margin-bottom:2rem">
+                <div class="section-tag" style="display:inline-block;background:var(--gradient-2);color:var(--white);padding:.4rem 1rem;border-radius:999px;font-weight:700;margin-bottom:.6rem">Projects</div>
+                <h2 style="font-size:1.8rem;margin-top:.5rem;color:var(--primary-color)">Featured Interior Projects</h2>
+                <p style="color:var(--text-light);max-width:800px;margin:0.75rem auto">Sample projects showcasing our range — residential, commercial and hospitality interiors executed to high standards.</p>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img class="project-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0JCqQ-wfUnfPSYQnDP8R5H9ODHk7FuXYs9g&s" alt="Living area design">
+                    <div class="project-info">
+                        <h3>Modern Living Area</h3>
+                        <p>Contemporary finishes with warm lighting and layered textures.</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img class="project-image" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=1200" alt="Bedroom design">
+                    <div class="project-info">
+                        <h3>Cozy Bedroom</h3>
+                        <p>Soft palettes and bespoke joinery for restful spaces.</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img class="project-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQj6BPp3wuN3JbHWLmzzsU4bdeMp4ID0yfo7A&s" alt="Office interior">
+                    <div class="project-info">
+                        <h3>Workspace Revival</h3>
+                        <p>Functional workspaces that promote productivity and wellbeing.</p>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <img class="project-image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1auttX_TEOSFJV6bXZPF3pT6fuxDuSsdQcQ&s" alt="Hotel suite">
+                    <div class="project-info">
+                        <h3>Hotel Suite</h3>
+                        <p>Luxury finishes and guest-focused layouts for hospitality settings.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin-top:2rem">
+                <a href="contact.html" class="btn btn-primary" style="background:var(--secondary-color);color:#fff;padding:12px 22px;border-radius:999px;font-weight:700">Request a Quote</a>
+            </div>
+        </div>
+    </section>
+
+<!-- CASE STUDY -->
+<section style="padding:2rem 0;background:var(--white)">
+    <div class="container">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:center">
+            <div>
+                <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1000" alt="Case study image" style="border-radius:12px;box-shadow:var(--shadow-lg)">
+            </div>
+            <div>
+                <h3 style="margin-top:0;color:var(--primary-color)">Case Study: Victoria Island Residence</h3>
+                <p style="color:var(--text-light)">Scope: Full interior fit-out for 4-bedroom residence including custom joinery, lighting and soft furnishings.</p>
+                <p style="color:var(--text-light)">Timeline: 12 weeks from concept to completion. Outcome: Increased usable living space, improved lighting and a modern cohesive aesthetic.</p>
+                <p style="color:var(--text-light)"><strong>Client feedback:</strong> "UGANE delivered a beautiful home that reflects our style and family needs — transparent communication and punctuality throughout."</p>
+                <p style="margin-top:.75rem"><strong>Typical budget range:</strong> ₦5,000,000 — ₦25,000,000 (varies by finishes and scope)</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- TESTIMONIALS -->
+<section class="service-overview" style="padding:3rem 0 2rem;">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:1.25rem;">
+            <div class="section-tag" style="display:inline-block;background:var(--gradient-2);color:var(--white);padding:.4rem 1rem;border-radius:999px;font-weight:700;margin-bottom:.6rem">Testimonials</div>
+            <h2 style="font-size:1.6rem;margin-top:.5rem;color:var(--primary-color)">What Our Clients Say</h2>
+            <p style="color:var(--text-light);max-width:800px;margin:0.5rem auto">A few words from some of our satisfied clients after completed interior projects.</p>
+        </div>
+
+        <div class="projects-grid" style="grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.25rem;">
+            <div class="project-card" style="padding:1rem;">
+                <p style="margin:0 0 1rem;color:var(--text-light)">“UGANE transformed our living room beyond expectations — professional team, excellent eye for detail and on time delivery.”</p>
+                <div style="display:flex;align-items:center;gap:.75rem">
+                    <div style="width:48px;height:48px;border-radius:50%;background:var(--gradient-2);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">AK</div>
+                    <div>
+                        <strong>Amaka K.</strong>
+                        <div style="font-size:.9rem;color:var(--text-light)">Private Residence, Lekki</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" style="padding:1rem;">
+                <p style="margin:0 0 1rem;color:var(--text-light)">“Their space planning made our small office feel double the size. Practical and stylish solutions.”</p>
+                <div style="display:flex;align-items:center;gap:.75rem">
+                    <div style="width:48px;height:48px;border-radius:50%;background:var(--gradient-2);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">TB</div>
+                    <div>
+                        <strong>Tunde B.</strong>
+                        <div style="font-size:.9rem;color:var(--text-light)">Corporate Office, VI</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" style="padding:1rem;">
+                <p style="margin:0 0 1rem;color:var(--text-light)">“They managed suppliers and installation expertly—minimal fuss and great results.”</p>
+                <div style="display:flex;align-items:center;gap:.75rem">
+                    <div style="width:48px;height:48px;border-radius:50%;background:var(--gradient-2);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700">LN</div>
+                    <div>
+                        <strong>Lisa N.</strong>
+                        <div style="font-size:.9rem;color:var(--text-light)">Boutique Hotel, Abuja</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- SERVICES LIST -->
+    <section class="service-overview" style="padding-top:2rem;padding-bottom:4rem">
+        <div class="container">
+            <h2 style="text-align:center;margin-bottom:1rem;color:var(--primary-color)">Our Interior Services</h2>
+            <div class="services-list">
+                <div class="service-item">
+                    <i class="fas fa-pencil-ruler fa-2x"></i>
+                    <div>
+                        <strong>Design Consultation</strong>
+                        <div style="color:var(--text-light)">Initial concept sessions and moodboard creation.</div>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <i class="fas fa-couch fa-2x"></i>
+                    <div>
+                        <strong>Custom Furniture & Joinery</strong>
+                        <div style="color:var(--text-light)">Bespoke furniture designed to fit your space.</div>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <i class="fas fa-lightbulb fa-2x"></i>
+                    <div>
+                        <strong>Lighting Design</strong>
+                        <div style="color:var(--text-light)">Task and ambient lighting schemes for every room.</div>
+                    </div>
+                </div>
+
+                <div class="service-item">
+                    <i class="fas fa-palette fa-2x"></i>
+                    <div>
+                        <strong>Materials & Finishes</strong>
+                        <div style="color:var(--text-light)">Selection of fabrics, tiles, paints and surface finishes.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- PARTNERS -->
+<section style="padding:2rem 0;background:var(--bg-light)">
+    <div class="container">
+        <div style="text-align:center;margin-bottom:1rem">
+            <h3 style="color:var(--primary-color);margin-bottom:.25rem">Our Suppliers & Partners</h3>
+            <p style="color:var(--text-light);max-width:800px;margin:0 auto">We work with trusted manufacturers and local artisans to deliver quality finishes.</p>
+        </div>
+
+        <div style="display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;margin-top:1rem">
+            <div style="background:var(--white);padding:.6rem 1rem;border-radius:8px;box-shadow:var(--shadow-sm)">High-end Joinery</div>
+            <div style="background:var(--white);padding:.6rem 1rem;border-radius:8px;box-shadow:var(--shadow-sm)">Textiles & Fabrics</div>
+            <div style="background:var(--white);padding:.6rem 1rem;border-radius:8px;box-shadow:var(--shadow-sm)">Lighting Brands</div>
+            <div style="background:var(--white);padding:.6rem 1rem;border-radius:8px;box-shadow:var(--shadow-sm)">Tile & Stone Suppliers</div>
+            <div style="background:var(--white);padding:.6rem 1rem;border-radius:8px;box-shadow:var(--shadow-sm)">Furniture Makers</div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- STATS -->
+    <section class="stats-section">
+        <div class="container">
+            <h2 style="margin-bottom:.5rem">Interior Design by the Numbers</h2>
+            <p style="opacity:.9;margin-bottom:1rem">Delivering quality interiors across sectors.</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="250">0</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="15">0</div>
+                    <div class="stat-label">Awards</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="3500">0</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="99">0</div>
+                    <div class="stat-label">% Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready to Transform Your Space?</h2>
+        <p>Let’s discuss your vision — schedule a consultation with our interior design team today</p>
+        <a href="contact.html" class="btn btn-light">
+            <span>Get In Touch</span>
+            <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
+</section>
+
+   <!-- Footer -->
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>UGANE Business Services</h3>
+                <p>Your trusted partner across multiple industries, delivering excellence and quality in everything we do.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html"><i class="fas fa-angle-right"></i> About Us</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-angle-right"></i> Gallery</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="food-export.html"><i class="fas fa-angle-right"></i> Food Exportation</a></li>
+                    <li><a href="real-estate.html"><i class="fas fa-angle-right"></i> Real Estate</a></li>
+                    <li><a href="hospitality.html"><i class="fas fa-angle-right"></i> Hospitality</a></li>
+                    <li><a href="interior.html"><i class="fas fa-angle-right"></i> Interior Decoration</a></li>
+                    <li><a href="household.html"><i class="fas fa-angle-right"></i> Household Equipment</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> Victoria Island, Lagos, Nigeria</li>
+                    <li><i class="fas fa-phone"></i> +234 (0) 123 456 7890</li>
+                    <li><i class="fas fa-envelope"></i> info@uganebusiness.com</li>
+                    <li><i class="fas fa-clock"></i> Mon - Sat: 8:00 AM - 6:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 UGANE Business Services. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+    <!-- SCROLL TOP -->
+    <div class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></div>
+
+    <!-- SCRIPTS: same behaviors as index.html -->
+    <script>
+        // PRELOADER
+        window.addEventListener('load', function() {
+            setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 900);
+        });
+
+        // NAV HAMBURGER
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        // Close mobile nav on link click
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // SCROLL effects & scroll-top
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.scrollY > 50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
+            if (window.scrollY > 300) scrollTop.classList.add('show'); else scrollTop.classList.remove('show');
+        });
+
+        document.getElementById('scrollTop').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // SMOOTH ANCHOR SCROLL
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // COUNTER ANIMATION
+        function animateCounter(element, target, duration) {
+            let current = 0;
+            const increment = target / (duration / 16);
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = Number.isInteger(target) ? target : target.toFixed(1);
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current);
+                }
+            }, 16);
+        }
+
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseFloat(entry.target.getAttribute('data-target'));
+                    animateCounter(entry.target, target, 2000);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(counter => counterObserver.observe(counter));
+
+        // Reveal animations for cards
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.project-card, .feature-check, .service-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            revealObserver.observe(el);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Contact - UGANE Business Services</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reuse same tokens and global styles from index.html */
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --primary-color:#1a1a2e;
+            --secondary-color:#e94560;
+            --accent-color:#0f3460;
+            --text-dark:#2d3436;
+            --text-light:#636e72;
+            --bg-light:#f8f9fa;
+            --white:#ffffff;
+            --gradient-1: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            --gradient-2: linear-gradient(135deg,#f093fb 0%,#f5576c 100%);
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.08);
+            --shadow-md: 0 5px 25px rgba(0,0,0,0.12);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+        }
+        body{font-family:'Poppins',sans-serif;line-height:1.6;color:var(--text-dark);overflow-x:hidden;background:var(--bg-light)}
+        .container{max-width:1200px;margin:0 auto;padding:0 20px}
+        img{max-width:100%;height:auto;display:block}
+        a{text-decoration:none;color:inherit;transition:var(--transition)}
+        ul{list-style:none}
+
+        /* PRELOADER */
+        .preloader{position:fixed;top:0;left:0;width:100%;height:100%;background:var(--primary-color);display:flex;align-items:center;justify-content:center;z-index:10000;transition:opacity .5s,visibility .5s}
+        .preloader.hidden{opacity:0;visibility:hidden}
+        .loader{width:60px;height:60px;border:4px solid rgba(255,255,255,0.2);border-top:4px solid var(--secondary-color);border-radius:50%;animation:spin 1s linear infinite}
+        @keyframes spin{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+
+        /* NAV */
+        .navbar{background:rgba(255,255,255,0.95);backdrop-filter:blur(10px);box-shadow:var(--shadow-sm);position:fixed;top:0;width:100%;z-index:1000;transition:var(--transition)}
+        .navbar.scrolled{background:rgba(255,255,255,0.98);box-shadow:var(--shadow-md)}
+        .nav-wrapper{display:flex;justify-content:space-between;align-items:center;padding:1rem 0}
+        .logo{display:flex;align-items:center;gap:10px}
+        .logo-icon{width:50px;height:50px;background:var(--gradient-2);border-radius:12px;display:flex;align-items:center;justify-content:center;color:white;font-size:1.5rem;font-weight:bold;box-shadow:var(--shadow-sm)}
+        .logo-text h2{color:var(--primary-color);font-size:1.5rem;font-weight:700}
+        .logo-text span{color:var(--secondary-color);font-size:.65rem;text-transform:uppercase;letter-spacing:2px;font-weight:600}
+        .nav-menu{display:flex;gap:2.5rem;align-items:center}
+        .nav-menu li a{color:var(--text-dark);font-weight:500;padding:.5rem 0;position:relative;font-size:.95rem}
+        .nav-menu li a:hover,.nav-menu li a.active{color:var(--secondary-color)}
+        .nav-menu li a::after{content:'';position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:0;height:3px;background:var(--gradient-2);border-radius:2px;transition:var(--transition)}
+        .nav-menu li a:hover::after,.nav-menu li a.active::after{width:100%}
+        .dropdown{position:relative}
+        .dropbtn{display:flex;align-items:center;gap:.3rem;cursor:pointer}
+        .dropbtn i{font-size:.7rem;transition:var(--transition)}
+        .dropdown:hover .dropbtn i{transform:rotate(180deg)}
+        .dropdown-content{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:var(--white);min-width:240px;box-shadow:var(--shadow-lg);border-radius:15px;margin-top:1rem;overflow:hidden}
+        .dropdown-content a{display:flex;align-items:center;gap:10px;padding:1rem 1.5rem;color:var(--text-dark);border-bottom:1px solid #f0f0f0;transition:var(--transition)}
+        .dropdown-content a:last-child{border-bottom:none}
+        .dropdown-content a i{font-size:1.1rem;color:var(--secondary-color)}
+        .dropdown-content a:hover{background:var(--bg-light);padding-left:2rem;color:var(--secondary-color)}
+        .dropdown:hover .dropdown-content{display:block}
+        .hamburger{display:none;flex-direction:column;cursor:pointer;gap:5px;z-index:1001}
+        .hamburger span{width:28px;height:3px;background:var(--primary-color);transition:var(--transition);border-radius:2px}
+        .hamburger.active span:nth-child(1){transform:rotate(45deg) translate(8px,8px)}
+        .hamburger.active span:nth-child(2){opacity:0}
+        .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(8px,-8px)}
+
+        /* HERO */
+        .service-hero{background:linear-gradient(135deg,rgba(102,126,234,0.9),rgba(118,75,162,0.9)),url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200') center/cover;min-height:60vh;display:flex;align-items:center;position:relative;color:var(--white);padding-top:80px}
+        .service-hero::before{content:'';position:absolute;bottom:0;left:0;right:0;height:100px;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;background-size:cover}
+        .service-hero-content{position:relative;z-index:2;padding:60px 0}
+        .service-badge{display:inline-block;background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);padding:.7rem 2rem;border-radius:50px;font-size:.9rem;margin-bottom:1.5rem;font-weight:600}
+        .service-hero h1{font-size:2.8rem;margin-bottom:1rem;font-weight:800;line-height:1.1}
+        .service-hero p{font-size:1.05rem;margin-bottom:1.5rem;opacity:.95;max-width:800px}
+
+        /* CONTACT LAYOUT */
+        .contact-section{padding:5rem 0;background:var(--white)}
+        .contact-grid{display:grid;grid-template-columns:1fr 380px;gap:2.5rem;align-items:start}
+        .card{background:var(--white);border-radius:12px;box-shadow:var(--shadow-sm);overflow:hidden}
+        .contact-card{padding:1.5rem}
+        .contact-form{padding:1.5rem}
+        .form-row{display:flex;gap:1rem;flex-wrap:wrap}
+        label{display:block;font-weight:600;margin-bottom:.5rem;font-size:.95rem}
+        input[type="text"],input[type="email"],input[type="tel"],textarea,select{
+            width:100%;padding:12px 14px;border:1px solid #e6e9ef;border-radius:10px;font-size:1rem;color:var(--text-dark)
+        }
+        textarea{min-height:140px;resize:vertical}
+        .btn{display:inline-flex;align-items:center;gap:.6rem;padding:12px 20px;border-radius:999px;font-weight:700;border:2px solid transparent;cursor:pointer}
+        .btn-primary{background:var(--secondary-color);color:#fff}
+        .contact-info-list{display:flex;flex-direction:column;gap:.8rem}
+
+        /* MAP PLACEHOLDER */
+        .map-placeholder{background:linear-gradient(135deg,#e6f0ff,#f9f2ff);border-radius:12px;height:300px;display:flex;align-items:center;justify-content:center;color:var(--accent-color);font-weight:700}
+
+        /* STATS, CTA, FOOTER (reused styles) */
+       .stats-section {
+  padding: 3rem 1rem;
+  background: #f9f9f9;
+  text-align: center;
+}
+
+.stats-title {
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.stats-subtitle {
+  opacity: 0.95;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2rem;
+}
+
+.stat-item {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0078d7; /* Accent color */
+}
+
+.stat-label {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #555;
+}
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #0078d7; /* Accent color */
+}
+
+.stat-label {
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: #555;
+}
+        /* FOOTER - Modern Design */
+    .footer {
+        background: var(--primary-color);
+        color: var(--white);
+        padding: 4rem 0 2rem;
+        position: relative;
+    }
+
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-2);
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-col h3,
+    .footer-col h4 {
+        margin-bottom: 1.5rem;
+        color: var(--white);
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    .footer-col p {
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-col ul li a {
+        color: rgba(255,255,255,0.8);
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .footer-col ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .social-links a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        font-size: 1.1rem;
+    }
+
+    .social-links a:hover {
+        background: var(--secondary-color);
+        transform: translateY(-5px) rotate(360deg);
+    }
+
+    .contact-info li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1rem;
+        transition: var(--transition);
+    }
+
+    .contact-info li:hover {
+        color: var(--white);
+        padding-left: 5px;
+    }
+
+    .contact-info i {
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+        width: 20px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+    }
+        .scroll-top{position:fixed;bottom:30px;right:30px;width:50px;height:50px;background:var(--gradient-2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--white);cursor:pointer;opacity:0;visibility:hidden;transition:var(--transition);box-shadow:var(--shadow-md);z-index:999}
+        .scroll-top.show{opacity:1;visibility:visible}
+        @media(max-width:900px){.contact-grid{grid-template-columns:1fr}.nav-menu{position:fixed;left:-100%;top:70px;flex-direction:column;background:var(--white);width:100%;text-align:center;transition:.3s;box-shadow:var(--shadow-lg);padding:2rem 0;gap:0;height:calc(100vh - 70px);overflow-y:auto}.nav-menu.active{left:0}.hamburger{display:flex}}
+    </style>
+</head>
+<body>
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <div class="logo-icon">U</div>
+                    <div class="logo-text">
+                        <h2>UGANE</h2>
+                        <span>Business Services</span>
+                    </div>
+                </div>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Services <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-content">
+                            <a href="food-export.html"><i class="fas fa-shipping-fast"></i> Food Exportation</a>
+                            <a href="real-estate.html"><i class="fas fa-building"></i> Real Estate</a>
+                            <a href="hospitality.html"><i class="fas fa-hotel"></i> Hospitality</a>
+                            <a href="interior.html"><i class="fas fa-paint-roller"></i> Interior Decoration</a>
+                            <a href="household.html"><i class="fas fa-couch"></i> Household Equipment</a>
+                            <a href="wellness.html"><i class="fas fa-spa"></i> Health & Wellness</a>
+                            <a href="perfumes.html"><i class="fas fa-spray-can"></i> Perfumes</a>
+                            <a href="fashion.html"><i class="fas fa-tshirt"></i> Fashion & Wears</a>
+                        </div>
+                    </li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html" class="active">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="service-hero">
+        <div class="container">
+            <div class="service-hero-content">
+                <div class="service-badge"><i class="fas fa-envelope"></i> Get in Touch</div>
+                <h1>Contact UGANE Business Services</h1>
+                <p>We’d love to hear from you. For inquiries, partnerships, wholesale orders, or support — send us a message and we’ll get back to you promptly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="card contact-card">
+                    <h3 style="margin-bottom:.5rem;">Send Us a Message</h3>
+                    <p style="margin-bottom:1rem;color:var(--text-light)">Fill out the form and we'll respond within 1-2 business days.</p>
+
+                    <form id="contactForm" class="contact-form" novalidate>
+                        <div class="form-row">
+                            <div style="flex:1">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" placeholder="Your name" required>
+                            </div>
+                            <div style="flex:1">
+                                <label for="phone">Phone</label>
+                                <input type="tel" id="phone" name="phone" placeholder="+234 812 345 6789">
+                            </div>
+                        </div>
+
+                        <div style="margin-top:12px;">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                        </div>
+
+                        <div style="margin-top:12px;">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" placeholder="Brief subject">
+                        </div>
+
+                        <div style="margin-top:12px;">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+                        </div>
+
+                        <div style="margin-top:16px;display:flex;gap:10px;align-items:center">
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                            <div id="formStatus" style="color:var(--text-light);font-weight:600"></div>
+                        </div>
+                    </form>
+                </div>
+
+                <div>
+  <div class="card" style="margin-bottom:1.25rem; padding:0; overflow:hidden">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.629792626476!2d3.4216!3d6.4281!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf4b2f8f0f0f7%3A0x9c5e6b0a4c9e9f5!2sVictoria%20Island%2C%20Lagos!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng"
+      width="100%"
+      height="300"
+      style="border:0;"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+
+                    <div class="card contact-card">
+                        <h3 style="margin-bottom:.5rem;">Contact Info</h3>
+                        <p style="margin-bottom:1rem;color:var(--text-light)">Reach us via phone, email, or visit our office during business hours.</p>
+                        <ul class="contact-info-list" style="list-style:none;padding:0;margin:0">
+                            <li><strong>Address:</strong> Victoria Island, Lagos, Nigeria</li>
+                            <li><strong>Phone:</strong> +234 (0) 123 456 7890</li>
+                            <li><strong>Email:</strong> info@uganebusiness.com</li>
+                            <li><strong>Hours:</strong> Mon - Sat: 8:00 AM - 6:00 PM</li>
+                        </ul>
+                    </div>
+
+                    <div class="card contact-card" style="margin-top:1rem;">
+                        <h4 style="margin-bottom:.5rem;">Wholesale & Partnerships</h4>
+                        <p style="margin:0;color:var(--text-light)">For bulk orders, distribution partnerships, and supplier inquiries, email <a href="mailto:partners@uganebusiness.com">partners@uganebusiness.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- STATS -->
+<section class="stats-section">
+  <div class="container">
+    <h2 class="stats-title">Why Work With Us</h2>
+    <p class="stats-subtitle">Trusted across industries for quality, authenticity and service.</p>
+    
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="stat-number" data-target="8" data-start="3">3+</div>
+        <div class="stat-label">Business Divisions</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="500" data-start="120">120+</div>
+        <div class="stat-label">Happy Clients</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="25" data-start="10">10+</div>
+        <div class="stat-label">Countries Served</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" data-target="15" data-start="5">5+</div>
+        <div class="stat-label">Years of Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+    <!-- FOOTER -->
+    
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>UGANE Business Services</h3>
+                <p>Your trusted partner across multiple industries, delivering excellence and quality in everything we do.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html"><i class="fas fa-angle-right"></i> About Us</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-angle-right"></i> Gallery</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="food-export.html"><i class="fas fa-angle-right"></i> Food Exportation</a></li>
+                    <li><a href="real-estate.html"><i class="fas fa-angle-right"></i> Real Estate</a></li>
+                    <li><a href="hospitality.html"><i class="fas fa-angle-right"></i> Hospitality</a></li>
+                    <li><a href="interior.html"><i class="fas fa-angle-right"></i> Interior Decoration</a></li>
+                    <li><a href="household.html"><i class="fas fa-angle-right"></i> Household Equipment</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> Victoria Island, Lagos, Nigeria</li>
+                    <li><i class="fas fa-phone"></i> +234 (0) 123 456 7890</li>
+                    <li><i class="fas fa-envelope"></i> info@uganebusiness.com</li>
+                    <li><i class="fas fa-clock"></i> Mon - Sat: 8:00 AM - 6:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 UGANE Business Services. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+    <!-- SCROLL TOP -->
+    <div class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></div>
+
+    <!-- SCRIPTS -->
+    <script>
+        // PRELOADER
+        window.addEventListener('load', function() {
+            setTimeout(() => document.getElementById('preloader').classList.add('hidden'), 900);
+        });
+
+        // NAV HAMBURGER
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+
+        hamburger.addEventListener('click', function() {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+        });
+
+        // Close mobile nav on link click
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // SCROLL effects & scroll-top
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            const scrollTop = document.getElementById('scrollTop');
+            if (window.scrollY > 50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled');
+            if (window.scrollY > 300) scrollTop.classList.add('show'); else scrollTop.classList.remove('show');
+        });
+
+        document.getElementById('scrollTop').addEventListener('click', function() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // SMOOTH ANCHOR SCROLL
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+     
+
+document.addEventListener("DOMContentLoaded", () => {
+  const counters = document.querySelectorAll('.stat-number');
+  
+  counters.forEach(counter => {
+    const target = +counter.getAttribute('data-target');
+    const start = +counter.getAttribute('data-start') || 0;
+    let current = start;
+
+    const updateCount = () => {
+      // random increment between 1 and (target-start)/50
+      const increment = Math.floor(Math.random() * ((target - start) / 50)) + 1;
+
+      if (current < target) {
+        current += increment;
+        if (current > target) current = target; // cap at target
+        counter.innerText = current + '+';
+        setTimeout(updateCount, 50);
+      } else {
+        counter.innerText = target + '+';
+      }
+    };
+
+    updateCount();
+  });
+});
+
+
+
+
+
+        // FORM HANDLING (simple client-side validation + fetch stub)
+        const form = document.getElementById('contactForm');
+        const status = document.getElementById('formStatus');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            status.textContent = '';
+            const name = form.name.value.trim();
+            const email = form.email.value.trim();
+            const message = form.message.value.trim();
+
+            if (!name || !email || !message) {
+                status.style.color = 'crimson';
+                status.textContent = 'Please fill in required fields.';
+                return;
+            }
+
+            // Basic email format check
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                status.style.color = 'crimson';
+                status.textContent = 'Please enter a valid email address.';
+                return;
+            }
+
+            // Show sending state
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            status.style.color = 'var(--text-light)';
+            status.textContent = 'Sending message...';
+
+            // Example: send to placeholder endpoint. Replace URL with your actual endpoint.
+            fetch('https://example.com/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    phone: form.phone.value,
+                    subject: form.subject.value,
+                    message: message
+                })
+            }).then(response => {
+                // For demo, we'll treat both success and 4xx/5xx as success if no network error
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                form.reset();
+                status.style.color = 'green';
+                status.textContent = 'Message sent. We will get back to you shortly.';
+            }).catch(err => {
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                status.style.color = 'crimson';
+                status.textContent = 'Failed to send. Please try again later.';
+            });
+        });
+
+        // Reveal animations for contact cards
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        document.querySelectorAll('.card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            revealObserver.observe(el);
+        });
+    </script>
+</body>
+</html>

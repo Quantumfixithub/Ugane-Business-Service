@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitality Services - UGANE BUSINESS SERVICES</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #e94560;
+            --accent-color: #0f3460;
+            --gold-color: #ffa500;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.08);
+            --shadow-md: 0 5px 25px rgba(0,0,0,0.12);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255,255,255,0.2);
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .logo-text h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--secondary-color);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-menu li a {
+            color: var(--text-dark);
+            font-weight: 500;
+            padding: 0.5rem 0;
+            position: relative;
+            font-size: 0.95rem;
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 3px;
+            background: var(--gradient-2);
+            border-radius: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-menu li a:hover::after,
+        .nav-menu li a.active::after {
+            width: 100%;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropbtn {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            cursor: pointer;
+        }
+
+        .dropbtn i {
+            font-size: 0.7rem;
+            transition: var(--transition);
+        }
+
+        .dropdown:hover .dropbtn i {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--white);
+            min-width: 240px;
+            box-shadow: var(--shadow-lg);
+            border-radius: 15px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .dropdown-content a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 1rem 1.5rem;
+            color: var(--text-dark);
+            border-bottom: 1px solid #f0f0f0;
+            transition: var(--transition);
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a i {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+        }
+
+        .dropdown-content a:hover {
+            background: var(--bg-light);
+            padding-left: 2rem;
+            color: var(--secondary-color);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 28px;
+            height: 3px;
+            background: var(--primary-color);
+            transition: var(--transition);
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(8px, 8px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(8px, -8px);
+        }
+
+        .service-hero {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9)), 
+                        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200') center/cover;
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            color: var(--white);
+            padding-top: 80px;
+        }
+
+        .service-hero::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+            background-size: cover;
+        }
+
+        .service-hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .service-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .service-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .service-hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.95;
+            max-width: 700px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--white);
+            color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .btn-light {
+            background: var(--white);
+            color: var(--primary-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-light:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-overview {
+            padding: 6rem 0;
+            background: var(--white);
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .overview-image img {
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .overview-content h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .overview-content p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .overview-features {
+            margin-top: 2rem;
+        }
+
+        .feature-check {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--bg-light);
+            border-radius: 10px;
+            transition: var(--transition);
+        }
+
+        .feature-check:hover {
+            background: var(--gradient-2);
+            color: var(--white);
+            transform: translateX(10px);
+        }
+
+        .feature-check i {
+            color: var(--secondary-color);
+            font-size: 1.5rem;
+        }
+
+        .feature-check:hover i {
+            color: var(--white);
+        }
+
+        .services-section {
+            background: var(--bg-light);
+            padding: 6rem 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            display: inline-block;
+            background: var(--gradient-2);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .services-grid {
+            display: grid;
+            gri
+d-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2.5rem;
+        }
+
+    .service-card {
+        background: var(--white);
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+    }
+
+    .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .service-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+    }
+
+    .service-info {
+        padding: 2rem;
+    }
+
+    .service-category {
+        display: inline-block;
+        background: var(--gradient-2);
+        color: var(--white);
+        padding: 0.3rem 1rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+    }
+
+    .service-info h3 {
+        font-size: 1.4rem;
+        color: var(--primary-color);
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .service-info p {
+        color: var(--text-light);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+
+    .service-features {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .service-feature-tag {
+        background: var(--bg-light);
+        padding: 0.4rem 1rem;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        color: var(--text-dark);
+    }
+
+    .service-link {
+        color: var(--secondary-color);
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .service-link:hover {
+        gap: 1rem;
+    }
+
+    .stats-section {
+        background: var(--gradient-1);
+        color: var(--white);
+        padding: 5rem 0;
+        text-align: center;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 3rem;
+        margin-top: 3rem;
+    }
+
+    .stat-item {
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+        font-size: 1.1rem;
+        opacity: 0.9;
+    }
+
+    .stat-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        opacity: 0.8;
+    }
+
+    /* CTA SECTION - Modern Gradient */
+    .cta-section {
+        background: var(--gradient-2);
+        color: var(--white);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        animation: pulse 15s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .cta-section h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+    }
+
+    .cta-section p {
+        font-size: 1.3rem;
+        margin-bottom: 2.5rem;
+        opacity: 0.95;
+    }
+
+
+    /* CTA SECTION - Modern Gradient */
+    .cta-section {
+        background: var(--gradient-2);
+        color: var(--white);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-section::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+        animation: pulse 15s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+
+    .cta-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .cta-section h2 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        font-weight: 800;
+    }
+
+    .cta-section p {
+        font-size: 1.3rem;
+        margin-bottom: 2.5rem;
+        opacity: 0.95;
+    }
+
+    .scroll-top {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: var(--gradient-2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: var(--transition);
+        box-shadow: var(--shadow-md);
+        z-index: 999;
+    }
+
+    .scroll-top.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .scroll-top:hover {
+        transform: translateY(-5px);
+    }
+
+    @media (max-width: 768px) {
+        .nav-menu {
+            position: fixed;
+            left: -100%;
+            top: 70px;
+            flex-direction: column;
+            background: var(--white);
+            width: 100%;
+            text-align: center;
+            transition: 0.3s;
+            box-shadow: var(--shadow-lg);
+            padding: 2rem 0;
+            gap: 0;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+
+        .nav-menu.active {
+            left: 0;
+        }
+
+        .nav-menu li {
+            margin: 1.5rem 0;
+            width: 100%;
+        }
+
+        .dropdown-content {
+            position: static;
+            box-shadow: none;
+            margin-top: 0.5rem;
+            transform: none;
+        }
+
+        .hamburger {
+            display: flex;
+        }
+
+        .service-hero h1 {
+            font-size: 2rem;
+        }
+
+        .service-hero p {
+            font-size: 1rem;
+        }
+
+        .overview-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .services-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .footer-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+</head>
+<body>
+    <div class="preloader" id="preloader">
+        <div class="loader"></div>
+    </div>
+
+<nav class="navbar" id="navbar">
+    <div class="container">
+        <div class="nav-wrapper">
+            <div class="logo">
+                <div class="logo-icon">U</div>
+                <div class="logo-text">
+                    <h2>UGANE</h2>
+                    <span>Business Services</span>
+                </div>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn active">Services <i class="fas fa-chevron-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="food-export.html"><i class="fas fa-shipping-fast"></i> Food Exportation</a>
+                        <a href="real-estate.html"><i class="fas fa-building"></i> Real Estate</a>
+                        <a href="hospitality.html"><i class="fas fa-hotel"></i> Hospitality</a>
+                        <a href="interior.html"><i class="fas fa-paint-roller"></i> Interior Decoration</a>
+                        <a href="household.html"><i class="fas fa-couch"></i> Household Equipment</a>
+                        <a href="wellness.html"><i class="fas fa-spa"></i> Health & Wellness</a>
+                        <a href="perfumes.html"><i class="fas fa-spray-can"></i> Perfumes</a>
+                        <a href="fashion.html"><i class="fas fa-tshirt"></i> Fashion & Wears</a>
+                    </div>
+                </li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<section class="service-hero">
+    <div class="container">
+        <div class="service-hero-content">
+            <div class="service-badge">
+                <i class="fas fa-hotel"></i> Hospitality Services
+            </div>
+            <h1>Premium Hospitality Services</h1>
+            <p>World-class hotel management, event planning, and catering services. Creating memorable experiences for guests and clients with exceptional attention to detail.</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn btn-primary">
+                    <span>Our Services</span>
+                    <i class="fas fa-arrow-down"></i>
+                </a>
+                <a href="contact.html" class="btn btn-secondary">
+                    <span>Book Now</span>
+                    <i class="fas fa-calendar-check"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-overview">
+    <div class="container">
+        <div class="overview-grid">
+            <div class="overview-image">
+                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600" alt="Hospitality">
+            </div>
+            <div class="overview-content">
+                <h2>Excellence in Hospitality</h2>
+                <p>UGANE Hospitality Division provides comprehensive hospitality solutions including hotel management, event planning, catering services, and conference facilities management.</p>
+                <p>With years of experience in the hospitality industry, we deliver exceptional service that exceeds expectations. Our team of professionals ensures every detail is perfect, creating memorable experiences for all occasions.</p>
+                <div class="overview-features">
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Professional Hotel Management Services</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Full-Service Event Planning & Coordination</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Premium Catering for All Occasions</span>
+                    </div>
+                    <div class="feature-check">
+                        <i class="fas fa-check-circle"></i>
+                        <span>State-of-the-Art Conference Facilities</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="services-section" id="services">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">What We Offer</div>
+            <h2>Our Hospitality Services</h2>
+            <p>Comprehensive solutions for all your hospitality needs</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=400" alt="Hotel Management" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Hotel Services</span>
+                    <h3>Hotel Management</h3>
+                    <p>Complete hotel management solutions including operations, staff training, quality control, and guest services excellence.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">Operations</span>
+                        <span class="service-feature-tag">Staff Training</span>
+                        <span class="service-feature-tag">Quality Control</span>
+                    </div>
+                    <a href="contact.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400" alt="Event Planning" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Events</span>
+                    <h3>Event Planning & Management</h3>
+                    <p>Professional event planning for weddings, corporate events, conferences, and special occasions with flawless execution.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">Weddings</span>
+                        
+
+<span class="service-feature-tag"Corporate</span>
+
+<span class="service-feature-tag">Conferences</span>
+                        </div>
+                        <a href="contact.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1555244162-803834f70033?w=400" alt="Catering Services" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Catering</span>
+                    <h3>Catering Services</h3>
+                    <p>Premium catering services with diverse menu options, professional chefs, and impeccable presentation for any event size.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">Diverse Menu</span>
+                        <span class="service-feature-tag">Professional</span>
+                        <span class="service-feature-tag">Any Size</span>
+                    </div>
+                    <a href="contact.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=400" alt="Conference Facilities" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Business</span>
+                    <h3>Conference Facilities</h3>
+                    <p>Modern conference rooms with advanced AV equipment, high-speed internet, and professional support services.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">AV Equipment</span>
+                        <span class="service-feature-tag">High-Speed WiFi</span>
+                        <span class="service-feature-tag">Support Staff</span>
+                    </div>
+                    <a href="contact.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400" alt="Guest Services" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Service</span>
+                    <h3>Guest Services</h3>
+                    <p>Exceptional guest services including concierge, room service, housekeeping, and personalized attention to detail.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">Concierge</span>
+                        <span class="service-feature-tag">Room Service</span>
+                        <span class="service-feature-tag">24/7 Support</span>
+                    </div>
+                    <a href="contact.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1569012871812-f38ee64cd54c?w=400" alt="Accommodation" class="service-image">
+                <div class="service-info">
+                    <span class="service-category">Lodging</span>
+                    <h3>Accommodation Services</h3>
+                    <p>Comfortable and luxurious accommodation options ranging from standard rooms to executive suites and penthouses.</p>
+                    <div class="service-features">
+                        <span class="service-feature-tag">Luxury Rooms</span>
+                        <span class="service-feature-tag">Suites</span>
+                        <span class="service-feature-tag">Amenities</span>
+                    </div>
+                    <a href="contact.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="stats-section">
+    <div class="container">
+        <h2 style="margin-bottom: 1rem;">Our Hospitality Excellence</h2>
+        <p style="opacity: 0.9; margin-bottom: 3rem;">Numbers that speak for our quality</p>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                <div class="stat-number" data-target="2500">0</div>
+                <div class="stat-label">Events Managed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-smile"></i></div>
+                <div class="stat-number" data-target="50000">0</div>
+                <div class="stat-label">Happy Guests</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-utensils"></i></div>
+                <div class="stat-number" data-target="100000">0</div>
+                <div class="stat-label">Meals Served</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon"><i class="fas fa-star"></i></div>
+                <div class="stat-number" data-target="98">0</div>
+                <div class="stat-label">% Satisfaction Rate</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready to Experience Excellence?</h2>
+        <p>Let us make your next event or stay truly memorable</p>
+        <a href="contact.html" class="btn btn-light">
+            <span>Contact Us Today</span>
+            <i class="fas fa-paper-plane"></i>
+        </a>
+    </div>
+</section>
+
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>UGANE Business Services</h3>
+                <p>Your trusted partner across multiple industries, delivering excellence and quality in everything we do.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="about.html"><i class="fas fa-angle-right"></i> About Us</a></li>
+                    <li><a href="gallery.html"><i class="fas fa-angle-right"></i> Gallery</a></li>
+                    <li><a href="contact.html"><i class="fas fa-angle-right"></i> Contact</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Careers</a></li>
+                    <li><a href="#"><i class="fas fa-angle-right"></i> Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Our Services</h4>
+                <ul>
+                    <li><a href="food-export.html"><i class="fas fa-angle-right"></i> Food Exportation</a></li>
+                    <li><a href="real-estate.html"><i class="fas fa-angle-right"></i> Real Estate</a></li>
+                    <li><a href="hospitality.html"><i class="fas fa-angle-right"></i> Hospitality</a></li>
+                    <li><a href="interior.html"><i class="fas fa-angle-right"></i> Interior Decoration</a></li>
+                    <li><a href="household.html"><i class="fas fa-angle-right"></i> Household Equipment</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul class="contact-info">
+                    <li><i class="fas fa-map-marker-alt"></i> Victoria Island, Lagos, Nigeria</li>
+                    <li><i class="fas fa-phone"></i> +234 (0) 123 456 7890</li>
+                    <li><i class="fas fa-envelope"></i> info@uganebusiness.com</li>
+                    <li><i class="fas fa-clock"></i> Mon - Sat: 8:00 AM - 6:00 PM</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 UGANE Business Services. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<div class="scroll-top" id="scrollTop">
+    <i class="fas fa-arrow-up"></i>
+</div>
+
+<script>
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            document.getElementById('preloader').classList.add('hidden');
+        }, 1000);
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : 'auto';
+    });
+
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+    });
+
+    window.addEventListener('scroll', function() {
+        const navbar = document.getElementById('navbar');
+        const scrollTop = document.getElementById('scrollTop');
+        
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+
+        if (window.scrollY > 300) {
+            scrollTop.classList.add('show');
+        } else {
+            scrollTop.classList.remove('show');
+        }
+    });
+
+    document.getElementById('scrollTop').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    function animateCounter(element, target, duration) {
+        let current = 0;
+        const increment = target / (duration / 16);
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+                element.textContent = target + (target === 98 ? '%' : '+');
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current);
+            }
+        }, 16);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.getAttribute('data-target'));
+                animateCounter(entry.target, target, 2000);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat-number').forEach(counter => {
+        counterObserver.observe(counter);
+    });
+
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.service-card').forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        observer.observe(element);
+    });
+</script>
+
+</body>
+</html>
