@@ -681,7 +681,113 @@ d-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         margin-bottom: 2.5rem;
         opacity: 0.95;
     }
+ /* FOOTER - Modern Design */
+    .footer {
+        background: var(--primary-color);
+        color: var(--white);
+        padding: 4rem 0 2rem;
+        position: relative;
+    }
 
+    .footer::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-2);
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .footer-col h3,
+    .footer-col h4 {
+        margin-bottom: 1.5rem;
+        color: var(--white);
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    .footer-col p {
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+    }
+
+    .footer-col ul li {
+        margin-bottom: 0.8rem;
+    }
+
+    .footer-col ul li a {
+        color: rgba(255,255,255,0.8);
+        transition: var(--transition);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .footer-col ul li a:hover {
+        color: var(--secondary-color);
+        padding-left: 5px;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .social-links a {
+        width: 45px;
+        height: 45px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: var(--transition);
+        font-size: 1.1rem;
+    }
+
+    .social-links a:hover {
+        background: var(--secondary-color);
+        transform: translateY(-5px) rotate(360deg);
+    }
+
+    .contact-info li {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        color: rgba(255,255,255,0.8);
+        margin-bottom: 1rem;
+        transition: var(--transition);
+    }
+
+    .contact-info li:hover {
+        color: var(--white);
+        padding-left: 5px;
+    }
+
+    .contact-info i {
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+        width: 20px;
+    }
+
+    .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.7);
+    }
+
+    /* SCROLL TO TOP BUTTON */
     .scroll-top {
         position: fixed;
         bottom: 30px;
@@ -700,16 +806,29 @@ d-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         transition: var(--transition);
         box-shadow: var(--shadow-md);
         z-index: 999;
-    }
+  }
 
-    .scroll-top.show {
-        opacity: 1;
-        visibility: visible;
-    }
+.scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
 
     .scroll-top:hover {
         transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
     }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+        .hero-image {
+            opacity: 0.3;
+        }
+
+        .stats-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
 
     @media (max-width: 768px) {
         .nav-menu {
@@ -776,9 +895,10 @@ d-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 
 </head>
 <body>
+    <!-- Preloader 
     <div class="preloader" id="preloader">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
 <nav class="navbar" id="navbar">
     <div class="container">
@@ -1018,6 +1138,8 @@ d-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 </section>
 
 
+<!-- Footer -->
+
 <footer class="footer">
     <div class="container">
         <div class="footer-grid">
@@ -1068,6 +1190,7 @@ d-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     </div>
 </footer>
 
+<!-- Scroll to Top Button -->
 <div class="scroll-top" id="scrollTop">
     <i class="fas fa-arrow-up"></i>
 </div>

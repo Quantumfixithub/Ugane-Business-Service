@@ -616,8 +616,7 @@
         opacity: 0.95;
     }
 
-    .footer {
-     /* FOOTER - Modern Design */
+ /* FOOTER - Modern Design */
     .footer {
         background: var(--primary-color);
         color: var(--white);
@@ -723,6 +722,7 @@
         color: rgba(255,255,255,0.7);
     }
 
+    /* SCROLL TO TOP BUTTON */
     .scroll-top {
         position: fixed;
         bottom: 30px;
@@ -741,15 +741,27 @@
         transition: var(--transition);
         box-shadow: var(--shadow-md);
         z-index: 999;
-    }
+  }
 
-    .scroll-top.show {
-        opacity: 1;
-        visibility: visible;
-    }
+.scroll-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
 
     .scroll-top:hover {
         transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    /* RESPONSIVE DESIGN */
+    @media (max-width: 1024px) {
+        .hero-image {
+            opacity: 0.3;
+        }
+
+        .stats-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 
     @media (max-width: 768px) {
@@ -817,9 +829,10 @@
 
 </head>
 <body>
+    <!-- Preloader 
     <div class="preloader" id="preloader">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
 <nav class="navbar" id="navbar">
     <div class="container">
@@ -1059,6 +1072,8 @@ service-feature-tag">Tops</span>
 </section>
 
 
+<!-- Footer -->
+
 <footer class="footer">
     <div class="container">
         <div class="footer-grid">
@@ -1109,6 +1124,7 @@ service-feature-tag">Tops</span>
     </div>
 </footer>
 
+<!-- Scroll to Top Button -->
 <div class="scroll-top" id="scrollTop">
     <i class="fas fa-arrow-up"></i>
 </div>

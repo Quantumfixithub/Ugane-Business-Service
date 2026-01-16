@@ -69,12 +69,49 @@
         .hamburger.active span:nth-child(3){transform:rotate(-45deg) translate(8px,-8px)}
 
         /* HERO */
-        .service-hero{background:linear-gradient(135deg,rgba(102,126,234,0.9),rgba(118,75,162,0.9)),url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200') center/cover;min-height:65vh;display:flex;align-items:center;position:relative;color:var(--white);padding-top:80px}
-        .service-hero::before{content:'';position:absolute;bottom:0;left:0;right:0;height:100px;background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;background-size:cover}
-        .service-hero-content{position:relative;z-index:2;padding:60px 0}
-        .service-badge{display:inline-block;background:rgba(255,255,255,0.2);backdrop-filter:blur(10px);padding:.7rem 2rem;border-radius:50px;font-size:.9rem;margin-bottom:1.5rem;font-weight:600}
-        .service-hero h1{font-size:2.8rem;margin-bottom:1rem;font-weight:800;line-height:1.1}
-        .service-hero p{font-size:1.05rem;margin-bottom:1.5rem;opacity:.95;max-width:800px}
+        .service-hero{
+	    background:linear-gradient(135deg,rgba(102,126,234,0.9),rgba(118,75,162,0.9)),url('https://images.unsplash.com/photo-1505691938895-1758d7feb511?w=1200') center/cover;
+	  min-height:65vh;
+	  display:flex;
+	  align-items:center;
+	  position:relative;
+	  color:var(--white);
+	  padding-top:80px
+	}
+        .service-hero::before{
+	content:'';
+	position:absolute;
+	bottom:0;
+	left:0;
+	right:0;
+	height:100px;
+	background:url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
+	background-size:cover
+	}
+        .service-hero-content{
+		position:relative;
+		z-index:2;
+		padding:60px 0
+	}
+        .service-badge{
+	display:inline-block;
+	background:rgba(255,255,255,0.2);
+	backdrop-filter:blur(10px);
+	padding:.7rem 2rem;
+	border-radius:50px;
+	font-size:.9rem;
+	margin-bottom:1.5rem;
+	font-weight:600}
+        .service-hero h1{
+	font-size:2.8rem;
+	margin-bottom:1rem;
+	font-weight:800;
+	line-height:1.1}
+        .service-hero p{
+	font-size:1.05rem;
+	margin-bottom:1.5rem;
+	opacity:.95;
+	max-width:800px}
 
         /* INTERIOR CONTENT */
         .service-overview{padding:6rem 0;background:var(--white)}
@@ -273,7 +310,7 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 1rem 2.5rem;
+            padding: 0.5rem 1.5rem;
             border-radius: 50px;
             font-weight: 600;
             transition: var(--transition);
@@ -470,10 +507,10 @@ px);
 </head>
 <body>
 
-    <!-- PRELOADER -->
+   <!-- Preloader 
     <div class="preloader" id="preloader">
         <div class="loader"></div>
-    </div>
+    </div> -->
 
     <!-- NAV -->
     <nav class="navbar" id="navbar">
@@ -525,7 +562,8 @@ px);
                 <p>We create functional and beautiful interior spaces for homes, offices, and hospitality venues — blending aesthetics with practicality for every project.</p>
                 <div style="margin-top:1.25rem">
                     <a href="#projects" class="btn btn-primary" style="background:var(--white);color:var(--primary-color;padding:10px 18px;border-radius:999px;font-weight:700;display:inline-flex;align-items:center;gap:.6rem">See Projects <i class="fas fa-arrow-down"></i></a>
-                    <a href="contact.html" class="btn" style="background:transparent;color:var(--white);border:2px solid rgba(255,255,255,0.3);padding:10px 18px;border-radius:999px;font-weight:700;margin-left:10px">Request Quote <i class="fas fa-handshake"></i></a>
+
+<a href="contact.html" class="btn btn-primary" style="background:var(--white);color:var(--primary-color;padding:10px 18px;border-radius:999px;font-weight:700;display:inline-flex;align-items:center;gap:.6rem">Request Quote</i></a>
                 </div>
             </div>
         </div>
@@ -884,7 +922,7 @@ px);
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 UGANE Business Services. All Rights Reserved.</p>
+            <p>&copy; 2026 UGANE Business Services. All Rights Reserved.</p>
         </div>
     </div>
 </footer>
