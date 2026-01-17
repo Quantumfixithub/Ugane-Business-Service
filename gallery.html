@@ -167,7 +167,6 @@
         margin-bottom: 2.5rem;
         opacity: 0.95;
     }
-
         /* FOOTER - Modern Design */
     .footer {
         background: var(--primary-color);
@@ -298,18 +297,18 @@
 <nav class="navbar" id="navbar">
     <div class="container">
         <div class="nav-wrapper">
-            <div class="logo">
+            <a href="index.html" class="logo">
                 <div class="logo-icon">U</div>
                 <div class="logo-text">
                     <h2>UGANE</h2>
                     <span>Business Services</span>
                 </div>
-            </div>
+            </a>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
                 <li class="dropdown">
-                    <a href="#" class="dropbtn active">Services <i class="fas fa-chevron-down"></i></a>
+                    <a href="#" class="dropbtn">Services <i class="fas fa-chevron-down"></i></a>
                     <div class="dropdown-content">
                         <a href="food-export.html"><i class="fas fa-shipping-fast"></i> Food Exportation</a>
                         <a href="real-estate.html"><i class="fas fa-building"></i> Real Estate</a>
@@ -321,6 +320,10 @@
                         <a href="fashion.html"><i class="fas fa-tshirt"></i> Fashion & Wears</a>
                     </div>
                 </li>
+                <li><a href="products.html">Products</a></li>
+                <li><a href="cart.html" class="active">Cart <span id="cartCount" style="background: var(--secondary-color); color: white; padding: 2px 8px; border-radius: 50%; font-size: 0.8rem; margin-left: 5px;">0</span></a></li>
+                <li><a href="account.html">Account</a></li>
+                
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
@@ -332,6 +335,7 @@
         </div>
     </div>
 </nav>
+
 
     <!-- HERO -->
     <section class="service-hero">
@@ -469,17 +473,19 @@
         </div>
     </section>
 
-    <!-- CTA -->
-    <section class="cta-section">
-        <div class="container">
+    <!-- CTA Section -->
+<section class="cta-section">
+    <div class="container">
+        <div class="cta-content">
             <h2>Want to Feature Your Project?</h2>
             <p>Contact us to showcase your project or to request high-resolution images for marketing.</p>
-            <a href="contact.html" class="btn btn-light" style="display:inline-flex;align-items:center;gap:.6rem;padding:12px 22px;border-radius:999px;">
-                <span>Contact Us</span>
-                <i class="fas fa-paper-plane"></i>
+            <a href="contact.html" class="btn btn-light">
+                <span>Contact Us Today</span>
+                <i class="fas fa-rocket"></i>
             </a>
         </div>
-    </section>
+    </div>
+</section>
 
     <!-- FOOTER -->
    

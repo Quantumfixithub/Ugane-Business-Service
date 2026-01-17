@@ -1,0 +1,1620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - UGANE Business Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1a1a2e;
+            --secondary-color: #e94560;
+            --accent-color: #0f3460;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --shadow-sm: 0 2px 10px rgba(0,0,0,0.08);
+            --shadow-md: 0 5px 25px rgba(0,0,0,0.12);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.15);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg-light);
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* NAVIGATION */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .nav-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 20px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-text h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo-text span {
+            color: var(--secondary-color);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-menu li a {
+            color: var(--text-dark);
+            font-weight: 500;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .nav-menu li a:hover,
+        .nav-menu li a.active {
+            color: var(--secondary-color);
+        }
+
+        /* ADMIN SECTION */
+        .admin-section {
+            min-height: 100vh;
+            padding: 100px 0 60px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-badge {
+            display: inline-block;
+            background: var(--gradient-2);
+            color: var(--white);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* ADMIN STATS */
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .stat-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: var(--white);
+        }
+
+        .stat-icon.products { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .stat-icon.users { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+        .stat-icon.orders { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .stat-icon.revenue { background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); }
+
+        .stat-content h4 {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-content h2 {
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        /* ADMIN TABS */
+        .admin-tabs {
+            background: var(--white);
+            padding: 1rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 2rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: transparent;
+            border: none;
+            border-radius: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .tab-btn.active {
+            background: var(--gradient-2);
+            color: var(--white);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .admin-panel {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .panel-header h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* FORM STYLES */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 1rem;
+            border: 2px solid var(--bg-light);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* IMAGE UPLOAD */
+        .image-upload {
+            border: 2px dashed var(--bg-light);
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .image-upload:hover {
+            border-color: var(--secondary-color);
+            background: var(--bg-light);
+        }
+
+        .image-upload i {
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .image-preview {
+            width: 100%;
+            max-width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        /* BUTTONS */
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--gradient-2);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--secondary-color);
+            border: 2px solid var(--secondary-color);
+        }
+
+        .btn-danger {
+            background: #ff4757;
+            color: var(--white);
+        }
+
+        /* DATA TABLE */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .data-table thead {
+            background: var(--bg-light);
+        }
+
+        .data-table th {
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--bg-light);
+        }
+
+        .data-table tr:hover {
+            background: var(--bg-light);
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+        }
+
+        .action-btn.edit {
+            background: #3498db;
+            color: white;
+        }
+
+        .action-btn.delete {
+            background: #ff4757;
+            color: white;
+        }
+
+        /* STATUS */
+        .status {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            display: none;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 500;
+            z-index: 9998;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .status.show {
+            display: flex;
+            animation: slideIn 0.5s ease;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--bg-light);
+        }
+
+        .close-modal {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--bg-light);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background: var(--secondary-color);
+            color: var(--white);
+        }
+
+        /* ACCESS DENIED */
+        .access-denied {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        }
+
+        .access-denied-card {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 500px;
+        }
+
+        .access-denied-card i {
+            font-size: 5rem;
+            color: #ff4757;
+            margin-bottom: 1.5rem;
+        }
+
+        .access-denied-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .access-denied-card p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Access Denied -->
+<div class="access-denied" id="accessDenied" style="display: none;">
+    <div class="access-denied-card">
+        <i class="fas fa-shield-alt"></i>
+        <h2>Access Denied</h2>
+        <p>You need admin privileges to access this page.</p>
+        <a href="account.html" class="btn btn-primary">Login as Admin</a>
+    </div>
+</div>
+
+<!-- Status Message -->
+<div class="status" id="status"></div>
+
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-wrapper">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">U</div>
+            <div class="logo-text">
+                <h2>UGANE</h2>
+                <span>Business Services</span>
+            </div>
+        </a>
+        <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="products.html">Products</a></li>
+            <li><a href="cart.html">Cart</a></li>
+            <li><a href="account.html">Account</a></li>
+            <li><a href="admin.html" class="active">Admin</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Admin Section -->
+<section class="admin-section">
+    <div class="container">
+        <div class="page-header">
+            <span class="page-badge"><i class="fas fa-shield-alt"></i> Admin Dashboard</span>
+            <h1>Control Panel</h1>
+            <p>Welcome, <span id="adminName">Administrator</span>!</p>
+        </div>
+
+        <!-- Stats -->
+        <div class="admin-stats">
+            <div class="stat-card">
+                <div class="stat-icon products">
+                    <i class="fas fa-box"></i>
+                </div>
+                <div class="stat-content">
+                    <h4>Total Products</h4>
+                    <h2 id="totalProducts">0</h2>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon users">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-content">
+                    <h4>Registered Users</h4>
+                    <h2 id="totalUsers">0</h2>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon orders">
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="stat-content">
+                    <h4>Total Orders</h4>
+                    <h2 id="totalOrders">0</h2>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon revenue">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="stat-content">
+                    <h4>Total Revenue</h4>
+                    <h2 id="totalRevenue">₦0</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab('products')">
+                <i class="fas fa-box"></i> Products
+            </button>
+            <button class="tab-btn" onclick="switchTab('users')">
+                <i class="fas fa-users"></i> Users
+            </button>
+            <button class="tab-btn" onclick="switchTab('orders')">
+                <i class="fas fa-shopping-cart"></i> Orders
+            </button>
+            <button class="tab-btn" onclick="switchTab('admins')">
+                <i class="fas fa-user-shield"></i> Admins
+            </button>
+            <button class="tab-btn" onclick="switchTab('settings')">
+                <i class="fas fa-cog"></i> Settings
+            </button>
+        </div>
+
+        <!-- PRODUCTS TAB -->
+        <div class="tab-content active" id="productsTab">
+            <div class="admin-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-box"></i> Product Management</h3>
+                    <button class="btn btn-primary" onclick="openProductModal()">
+                        <i class="fas fa-plus"></i> Add Product
+                    </button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- USERS TAB -->
+        <div class="tab-content" id="usersTab">
+            <div class="admin-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-users"></i> User Management</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Registered</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ORDERS TAB -->
+        <div class="tab-content" id="ordersTab">
+            <div class="admin-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-shopping-cart"></i> Order Management</h3>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Customer</th>
+                            <th>Date</th>
+                            <th>Total</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ordersTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ADMINS TAB -->
+        <div class="tab-content" id="adminsTab">
+            <div class="admin-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-user-shield"></i> Admin Management</h3>
+                    <button class="btn btn-primary" onclick="openAdminModal()">
+                        <i class="fas fa-plus"></i> Add Admin
+                    </button>
+                </div>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Added</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminsTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SETTINGS TAB -->
+        <div class="tab-content" id="settingsTab">
+            <div class="admin-panel">
+                <div class="panel-header">
+                    <h3><i class="fas fa-cog"></i> System Settings</h3>
+                </div>
+
+                <!-- Company Info -->
+                <h4 style="margin: 2rem 0 1rem; color: var(--primary-color);">Company Information</h4>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Company Name</label>
+                        <input type="text" id="companyName" value="UGANE Business Services">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="companyEmail" value="info@uganebusiness.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="companyPhone" value="+234 123 456 7890">
+                    </div>
+                    <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" id="companyAddress" value="Victoria Island, Lagos">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="saveCompanySettings()">
+                    <i class="fas fa-save"></i> Save Company Info
+                </button>
+
+                <!-- Currency -->
+                <h4 style="margin: 2rem 0 1rem; color: var(--primary-color);">Currency Settings</h4>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Currency</label>
+                        <select id="currency">
+                            <option value="NGN">Nigerian Naira (₦)</option>
+                            <option value="USD">US Dollar ($)</option>
+                            <option value="GBP">British Pound (£)</option>
+                            <option value="EUR">Euro (€)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Exchange Rate (to NGN)</label>
+                        <input type="number" id="exchangeRate" value="1" step="0.01">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="saveCurrencySettings()">
+                    <i class="fas fa-save"></i> Save Currency
+                </button>
+
+                <!-- Other Settings -->
+                <h4 style="margin: 2rem 0 1rem; color: var(--primary-color);">Other Settings</h4>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Shipping Fee</label>
+                        <input type="number" id="shippingFee" value="2500">
+                    </div>
+                    <div class="form-group">
+                        <label>Free Shipping Threshold</label>
+                        <input type="number" id="freeShippingThreshold" value="50000">
+                    </div>
+                    <div class="form-group">
+                        <label>Tax Rate (%)</label>
+                        <input type="number" id="taxRate" value="7.5" step="0.1">
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="saveOtherSettings()">
+                    <i class="fas fa-save"></i> Save Settings
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Product Modal -->
+<div class="modal" id="productModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle"><i class="fas fa-box"></i> Add Product</h3>
+            <button class="close-modal" onclick="closeProductModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form id="productForm" onsubmit="saveProduct(event)">
+            <input type="hidden" id="productIndex">
+            
+            <div class="form-group">
+                <label>Product Name *</label>
+                <input type="text" id="productName" required>
+            </div>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select id="productCategory" required>
+                        <option value="">Select Category</option>
+                        <option value="food">Food & Beverages</option>
+                        <option value="fashion">Fashion & Wears</option>
+                        <option value="household">Household Equipment</option>
+                        <option value="perfumes">Perfumes</option>
+                        <option value="wellness">Health & Wellness</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Price *</label>
+                    <input type="number" id="productPrice" required min="0" step="0.01">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Description *</label>
+                <textarea id="productDescription" required></textarea>
+            </div>
+            
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Stock Status</label>
+                    <select id="productStock">
+                        <option value="true">In Stock</option>
+                        <option value="false">Out of Stock</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Badge (Optional)</label>
+                    <select id="productBadge">
+                        <option value="">No Badge</option>
+                        <option value="Best Seller">Best Seller</option>
+                        <option value="New Arrival">New Arrival</option>
+                        <option value="Popular">Popular</option>
+                        <option value="Trending">Trending</option>
+                        <option value="Premium">Premium</option>
+                        <option value="Hot Deal">Hot Deal</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Product Image</label>
+                <div class="image-upload" onclick="document.getElementById('productImage').click()">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Click to upload image</p>
+                    <input type="file" id="productImage" accept="image/*" style="display: none;" onchange="previewImage(event)">
+                </div>
+                <img id="imagePreview" class="image-preview" style="display: none;">
+            </div>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Save Product
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="closeProductModal()">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Admin Modal -->
+<div class="modal" id="adminModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3><i class="fas fa-user-shield"></i> Add Administrator</h3>
+            <button class="close-modal" onclick="closeAdminModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form id="adminForm" onsubmit="saveAdmin(event)">
+            <div class="form-group">
+                <label>Full Name *</label>
+                <input type="text" id="adminName" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Email *</label>
+                <input type="email" id="adminEmail" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Password *</label>
+                <input type="password" id="adminPassword" required minlength="6">
+            </div>
+            
+            <div class="form-group">
+                <label>Role *</label>
+                <select id="adminRole" required>
+                    <option value="Super Admin">Super Admin</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Manager">Manager</option>
+                </select>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Add Administrator
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="closeAdminModal()">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// ============================================
+// INITIALIZE DEFAULT ADMIN & CHECK ACCESS
+// ============================================
+(function initializeAdmin() {
+    console.log('🔍 Initializing admin system...');
+    
+    // Create default admin if none exists
+    let admins = JSON.parse(localStorage.getItem('admins') || '[]');
+    if (!Array.isArray(admins)) admins = [];
+    
+    if (!admins.find(a => a.email === 'admin@ugane.com')) {
+        admins.push({
+            name: 'Super Admin',
+            email: 'admin@ugane.com',
+            password: 'Admin@123',
+            role: 'Super Admin',
+            date: new Date().toLocaleDateString()
+        });
+        localStorage.setItem('admins', JSON.stringify(admins));
+        console.log('✅ Default admin created: admin@ugane.com / Admin@123');
+    }
+    
+    // Check admin access
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    console.log('Current user:', currentUser);
+    
+    if (!currentUser) {
+        console.log('❌ No user logged in');
+        alert('Please login first!');
+        window.location.href = 'account.html';
+        return;
+    }
+    
+    // Check if user is admin
+    const isAdmin = currentUser.isAdmin === true || 
+                    admins.some(admin => admin.email === currentUser.email);
+    
+    if (!isAdmin) {
+        console.log('❌ Access denied - not an admin');
+        alert('Access Denied! Admin privileges required.');
+        window.location.href = 'account.html';
+        return;
+    }
+    
+    console.log('✅ Admin access granted!');
+})();
+
+// ============================================
+// GLOBAL VARIABLES
+// ============================================
+let products = [];
+let users = [];
+let orders = [];
+let admins = [];
+let settings = {};
+
+// ============================================
+// SAFE GET ELEMENT
+// ============================================
+const safeGet = (id) => document.getElementById(id) || null;
+
+// ============================================
+// STATUS MESSAGE
+// ============================================
+function showStatus(message, type = 'success') {
+    const status = safeGet('status');
+    if (!status) {
+        console.log(`[${type}] ${message}`);
+        return;
+    }
+    status.innerHTML = `<i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${message}`;
+    status.className = 'status show ' + type;
+    setTimeout(() => status.classList.remove('show'), 4000);
+}
+
+// ============================================
+// TAB SWITCHING
+// ============================================
+function switchTab(tabName) {
+    // Hide all tabs
+    document.querySelectorAll('.tab-content').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Remove active from all buttons
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Show selected tab
+    const selectedTab = safeGet(tabName + 'Tab');
+    if (selectedTab) selectedTab.classList.add('active');
+    
+    // Mark button as active
+    if (event && event.target) event.target.classList.add('active');
+    
+    // Load data for the tab
+    if (tabName === 'products') renderProducts();
+    if (tabName === 'users') renderUsers();
+    if (tabName === 'orders') renderOrders();
+    if (tabName === 'admins') renderAdmins();
+    if (tabName === 'settings') loadSettings();
+}
+
+// ============================================
+// UPDATE STATS
+// ============================================
+function updateStats() {
+    products = JSON.parse(localStorage.getItem('products') || '[]');
+    users = JSON.parse(localStorage.getItem('users') || '[]');
+    orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    settings = JSON.parse(localStorage.getItem('siteSettings') || '{"currencySymbol": "₦"}');
+    
+    const totalProductsEl = safeGet('totalProducts');
+    const totalUsersEl = safeGet('totalUsers');
+    const totalOrdersEl = safeGet('totalOrders');
+    const totalRevenueEl = safeGet('totalRevenue');
+    
+    if (totalProductsEl) totalProductsEl.textContent = products.length;
+    if (totalUsersEl) totalUsersEl.textContent = users.length;
+    if (totalOrdersEl) totalOrdersEl.textContent = orders.length;
+    
+    const revenue = orders.reduce((sum, order) => sum + (order.total || 0), 0);
+    if (totalRevenueEl) totalRevenueEl.textContent = (settings.currencySymbol || '₦') + revenue.toLocaleString();
+}
+
+// ============================================
+// PRODUCTS MANAGEMENT
+// ============================================
+function renderProducts() {
+    products = JSON.parse(localStorage.getItem('products') || '[]');
+    const tbody = safeGet('productsTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    if (products.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #999;">No products found. Add your first product!</td></tr>';
+        return;
+    }
+    
+    products.forEach((product, index) => {
+        tbody.innerHTML += `
+            <tr>
+                <td>
+                    <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+                        ${product.image ? `<img src="${product.image}" style="width: 100%; height: 100%; object-fit: cover;">` : '<i class="fas fa-image" style="color: white;"></i>'}
+                    </div>
+                </td>
+                <td><strong>${product.name}</strong></td>
+                <td><span style="background: #f5f5f5; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">${product.category}</span></td>
+                <td><strong style="color: var(--primary-color);">₦${(product.price || 0).toLocaleString()}</strong></td>
+                <td><span style="color: ${product.inStock ? '#27ae60' : '#e74c3c'}; font-weight: 600;">${product.inStock ? '✓ In Stock' : '✗ Out of Stock'}</span></td>
+                <td>
+                    <button class="action-btn edit" onclick="editProduct(${index})" style="background: #3498db; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; margin-right: 0.5rem;">
+                        <i class="fas fa-edit"></i> Edit
+                    </button>
+                    <button class="action-btn delete" onclick="deleteProduct(${index})" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+function openProductModal() {
+    const modal = safeGet('productModal');
+    const modalTitle = safeGet('modalTitle');
+    const form = safeGet('productForm');
+    const imagePreview = safeGet('imagePreview');
+    const productIndex = safeGet('productIndex');
+    
+    if (modalTitle) modalTitle.innerHTML = '<i class="fas fa-box"></i> Add Product';
+    if (form) form.reset();
+    if (productIndex) productIndex.value = '';
+    if (imagePreview) imagePreview.style.display = 'none';
+    if (modal) modal.classList.add('show');
+}
+
+function editProduct(index) {
+    products = JSON.parse(localStorage.getItem('products') || '[]');
+    const product = products[index];
+    
+    const modalTitle = safeGet('modalTitle');
+    const productIndex = safeGet('productIndex');
+    const productName = safeGet('productName');
+    const productCategory = safeGet('productCategory');
+    const productPrice = safeGet('productPrice');
+    const productDescription = safeGet('productDescription');
+    const productStock = safeGet('productStock');
+    const productBadge = safeGet('productBadge');
+    const imagePreview = safeGet('imagePreview');
+    const modal = safeGet('productModal');
+    
+    if (modalTitle) modalTitle.innerHTML = '<i class="fas fa-edit"></i> Edit Product';
+    if (productIndex) productIndex.value = index;
+    if (productName) productName.value = product.name;
+    if (productCategory) productCategory.value = product.category;
+    if (productPrice) productPrice.value = product.price;
+    if (productDescription) productDescription.value = product.description;
+    if (productStock) productStock.value = product.inStock;
+    if (productBadge) productBadge.value = product.badge || '';
+    
+    if (product.image && imagePreview) {
+        imagePreview.src = product.image;
+        imagePreview.style.display = 'block';
+    }
+    
+    if (modal) modal.classList.add('show');
+}
+
+function closeProductModal() {
+    const modal = safeGet('productModal');
+    if (modal) modal.classList.remove('show');
+}
+
+function previewImage(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const imagePreview = safeGet('imagePreview');
+        if (imagePreview) {
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = 'block';
+        }
+    };
+    reader.readAsDataURL(file);
+}
+
+function saveProduct(event) {
+    event.preventDefault();
+    
+    products = JSON.parse(localStorage.getItem('products') || '[]');
+    const index = safeGet('productIndex')?.value;
+    const imagePreview = safeGet('imagePreview');
+    
+    const productData = {
+        name: safeGet('productName')?.value || '',
+        category: safeGet('productCategory')?.value || '',
+        price: parseFloat(safeGet('productPrice')?.value || 0),
+        description: safeGet('productDescription')?.value || '',
+        inStock: safeGet('productStock')?.value === 'true',
+        badge: safeGet('productBadge')?.value || null,
+        image: (imagePreview && imagePreview.style.display !== 'none') ? imagePreview.src : null
+    };
+    
+    if (index === '' || index === null) {
+        // Add new product
+        products.push(productData);
+        showStatus('Product added successfully! 🎉', 'success');
+    } else {
+        // Update existing product
+        products[parseInt(index)] = productData;
+        showStatus('Product updated successfully! ✅', 'success');
+    }
+    
+    localStorage.setItem('products', JSON.stringify(products));
+    renderProducts();
+    updateStats();
+    closeProductModal();
+}
+
+function deleteProduct(index) {
+    if (!confirm('Are you sure you want to delete this product?')) return;
+    
+    products = JSON.parse(localStorage.getItem('products') || '[]');
+    const productName = products[index]?.name || 'Product';
+    products.splice(index, 1);
+    localStorage.setItem('products', JSON.stringify(products));
+    renderProducts();
+    updateStats();
+    showStatus(`"${productName}" deleted successfully!`, 'success');
+}
+
+// ============================================
+// USERS MANAGEMENT
+// ============================================
+function renderUsers() {
+    users = JSON.parse(localStorage.getItem('users') || '[]');
+    const tbody = safeGet('usersTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    if (users.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem; color: #999;">No registered users yet.</td></tr>';
+        return;
+    }
+    
+    users.forEach((user, index) => {
+        tbody.innerHTML += `
+            <tr>
+                <td><strong>${user.name}</strong></td>
+                <td>${user.email}</td>
+                <td>${user.phone || 'N/A'}</td>
+                <td>${user.date || 'N/A'}</td>
+                <td>
+                    <button class="action-btn delete" onclick="deleteUser(${index})" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+function deleteUser(index) {
+    if (!confirm('Are you sure you want to delete this user?')) return;
+    
+    users = JSON.parse(localStorage.getItem('users') || '[]');
+    const userName = users[index]?.name || 'User';
+    users.splice(index, 1);
+    localStorage.setItem('users', JSON.stringify(users));
+    renderUsers();
+    updateStats();
+    showStatus(`User "${userName}" deleted successfully!`, 'success');
+}
+
+// ============================================
+// ORDERS MANAGEMENT
+// ============================================
+function renderOrders() {
+    orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    const tbody = safeGet('ordersTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    if (orders.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; padding: 2rem; color: #999;">No orders yet.</td></tr>';
+        return;
+    }
+    
+    orders.forEach((order, index) => {
+        const customerName = order.customer?.name || order.customerName || 'Guest';
+        const orderTotal = order.total || 0;
+        const orderStatus = order.status || 'Pending';
+        
+        tbody.innerHTML += `
+            <tr>
+                <td><strong>#${order.id || 'ORD-' + (index + 1)}</strong></td>
+                <td>${customerName}</td>
+                <td>${order.date || 'N/A'}</td>
+                <td><strong style="color: var(--primary-color);">₦${orderTotal.toLocaleString()}</strong></td>
+                <td><span style="background: ${orderStatus === 'Completed' ? '#d4edda' : '#fff3cd'}; color: ${orderStatus === 'Completed' ? '#155724' : '#856404'}; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">${orderStatus}</span></td>
+                <td>
+                    <button class="action-btn" onclick="viewOrder(${index})" style="background: #3498db; color: white;  border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; margin-right: 0.5rem;">
+                        <i class="fas fa-eye"></i> View
+                    </button>
+                    <button class="action-btn delete" onclick="deleteOrder(${index})" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">
+                        <i class="fas fa-trash"></i> Delete
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+}
+
+function viewOrder(index) {
+    orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    const order = orders[index];
+    if (!order) return;
+    
+    const itemsList = (order.items || []).map(item => 
+        `• ${item.name} x${item.qty || 1} - ₦${((item.price || 0) * (item.qty || 1)).toLocaleString()}`
+    ).join('\n');
+    
+    const customerName = order.customer?.name || 'Guest';
+    const customerEmail = order.customer?.email || 'N/A';
+    const customerPhone = order.customer?.phone || 'N/A';
+    
+    alert(`━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `ORDER DETAILS\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+          `Order ID: ${order.id || 'N/A'}\n` +
+          `Date: ${order.date || 'N/A'}\n` +
+          `Status: ${order.status || 'Pending'}\n` +
+          `Payment: ${order.paymentMethod || 'N/A'}\n\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `CUSTOMER INFO\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+          `Name: ${customerName}\n` +
+          `Email: ${customerEmail}\n` +
+          `Phone: ${customerPhone}\n\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `ORDER ITEMS\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+          `${itemsList}\n\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `PAYMENT SUMMARY\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n\n` +
+          `Subtotal: ₦${(order.subtotal || 0).toLocaleString()}\n` +
+          `Shipping: ₦${(order.shipping || 0).toLocaleString()}\n` +
+          `Tax (7.5%): ₦${(order.tax || 0).toLocaleString()}\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━\n` +
+          `TOTAL: ₦${(order.total || 0).toLocaleString()}\n` +
+          `━━━━━━━━━━━━━━━━━━━━━━`
+    );
+}
+
+function deleteOrder(index) {
+    if (!confirm('Are you sure you want to delete this order?')) return;
+    
+    orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    const orderId = orders[index]?.id || 'Order';
+    orders.splice(index, 1);
+    localStorage.setItem('orders', JSON.stringify(orders));
+    renderOrders();
+    updateStats();
+    showStatus(`Order #${orderId} deleted successfully!`, 'success');
+}
+
+// ============================================
+// ADMINS MANAGEMENT
+// ============================================
+function renderAdmins() {
+    admins = JSON.parse(localStorage.getItem('admins') || '[]');
+    const tbody = safeGet('adminsTableBody');
+    if (!tbody) return;
+    
+    tbody.innerHTML = '';
+    
+    if (admins.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 2rem; color: #999;">No administrators found.</td></tr>';
+        return;
+    }
+    
+    admins.forEach((admin, index) => {
+        tbody.innerHTML += `
+            <tr>
+                <td><strong>${admin.name}</strong></td>
+                <td>${admin.email}</td>
+                <td><span style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">${admin.role || 'Admin'}</span></td>
+                <td>${admin.date || 'N/A'}</td>
+                <td>
+                    ${admin.email === 'admin@ugane.com' ? '<span style="color: #999; font-style: italic;">Primary Admin</span>' : `
+                    <button class="action-btn delete" onclick="deleteAdmin(${index})" style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer;">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
+                    `}
+                </td>
+            </tr>
+        `;
+    });
+}
+
+function openAdminModal() {
+    const modal = safeGet('adminModal');
+    if (modal) modal.classList.add('show');
+}
+
+function closeAdminModal() {
+    const modal = safeGet('adminModal');
+    const form = safeGet('adminForm');
+    if (modal) modal.classList.remove('show');
+    if (form) form.reset();
+}
+
+function saveAdmin(event) {
+    event.preventDefault();
+    
+    admins = JSON.parse(localStorage.getItem('admins') || '[]');
+    
+    const adminData = {
+        name: safeGet('adminName')?.value || '',
+        email: safeGet('adminEmail')?.value.toLowerCase() || '',
+        password: safeGet('adminPassword')?.value || '',
+        role: safeGet('adminRole')?.value || 'Admin',
+        date: new Date().toLocaleDateString()
+    };
+    
+    // Check if email already exists
+    if (admins.some(admin => admin.email === adminData.email)) {
+        showStatus('Email already exists!', 'error');
+        return;
+    }
+    
+    admins.push(adminData);
+    localStorage.setItem('admins', JSON.stringify(admins));
+    renderAdmins();
+    closeAdminModal();
+    showStatus('Administrator added successfully! 🎉', 'success');
+}
+
+function deleteAdmin(index) {
+    if (!confirm('Are you sure you want to remove this administrator?')) return;
+    
+    admins = JSON.parse(localStorage.getItem('admins') || '[]');
+    
+    // Prevent deleting primary admin
+    if (admins[index]?.email === 'admin@ugane.com') {
+        showStatus('Cannot delete primary admin!', 'error');
+        return;
+    }
+    
+    const adminName = admins[index]?.name || 'Administrator';
+    admins.splice(index, 1);
+    localStorage.setItem('admins', JSON.stringify(admins));
+    renderAdmins();
+    showStatus(`Administrator "${adminName}" removed successfully!`, 'success');
+}
+
+// ============================================
+// SETTINGS MANAGEMENT
+// ============================================
+function loadSettings() {
+    settings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
+    
+    // Set defaults if not exist
+    const defaults = {
+        companyName: 'UGANE Business Services',
+        companyEmail: 'info@uganebusiness.com',
+        companyPhone: '+234 123 456 7890',
+        companyAddress: 'Victoria Island, Lagos',
+        currency: 'NGN',
+        currencySymbol: '₦',
+        exchangeRate: 1,
+        shippingFee: 2500,
+        freeShippingThreshold: 50000,
+        taxRate: 7.5
+    };
+    
+    settings = { ...defaults, ...settings };
+    
+    const companyName = safeGet('companyName');
+    const companyEmail = safeGet('companyEmail');
+    const companyPhone = safeGet('companyPhone');
+    const companyAddress = safeGet('companyAddress');
+    const currency = safeGet('currency');
+    const exchangeRate = safeGet('exchangeRate');
+    const shippingFee = safeGet('shippingFee');
+    const freeShippingThreshold = safeGet('freeShippingThreshold');
+    const taxRate = safeGet('taxRate');
+    
+    if (companyName) companyName.value = settings.companyName;
+    if (companyEmail) companyEmail.value = settings.companyEmail;
+    if (companyPhone) companyPhone.value = settings.companyPhone;
+    if (companyAddress) companyAddress.value = settings.companyAddress;
+    if (currency) currency.value = settings.currency;
+    if (exchangeRate) exchangeRate.value = settings.exchangeRate;
+    if (shippingFee) shippingFee.value = settings.shippingFee;
+    if (freeShippingThreshold) freeShippingThreshold.value = settings.freeShippingThreshold;
+    if (taxRate) taxRate.value = settings.taxRate;
+}
+
+function saveCompanySettings() {
+    settings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
+    
+    settings.companyName = safeGet('companyName')?.value || '';
+    settings.companyEmail = safeGet('companyEmail')?.value || '';
+    settings.companyPhone = safeGet('companyPhone')?.value || '';
+    settings.companyAddress = safeGet('companyAddress')?.value || '';
+    
+    localStorage.setItem('siteSettings', JSON.stringify(settings));
+    showStatus('Company information updated successfully! ✅', 'success');
+}
+
+function saveCurrencySettings() {
+    settings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
+    
+    const selectedCurrency = safeGet('currency')?.value || 'NGN';
+    settings.currency = selectedCurrency;
+    settings.exchangeRate = parseFloat(safeGet('exchangeRate')?.value || 1);
+    
+    // Set currency symbol
+    const currencySymbols = {
+        'NGN': '₦',
+        'USD': '$',
+        'GBP': '£',
+        'EUR': '€'
+    };
+    settings.currencySymbol = currencySymbols[selectedCurrency] || '₦';
+    
+    localStorage.setItem('siteSettings', JSON.stringify(settings));
+    showStatus(`Currency changed to ${selectedCurrency}! ✅`, 'success');
+    updateStats();
+}
+
+function saveOtherSettings() {
+    settings = JSON.parse(localStorage.getItem('siteSettings') || '{}');
+    
+    settings.shippingFee = parseFloat(safeGet('shippingFee')?.value || 0);
+    settings.freeShippingThreshold = parseFloat(safeGet('freeShippingThreshold')?.value || 0);
+    settings.taxRate = parseFloat(safeGet('taxRate')?.value || 0);
+    
+    localStorage.setItem('siteSettings', JSON.stringify(settings));
+    showStatus('Settings saved successfully! ✅', 'success');
+}
+
+// ============================================
+// LOGOUT FUNCTION
+// ============================================
+function logout() {
+    if (!confirm('Are you sure you want to logout?')) return;
+    
+    localStorage.removeItem('currentUser');
+    showStatus('Logged out successfully!', 'success');
+    setTimeout(() => {
+        window.location.href = 'account.html';
+    }, 1000);
+}
+
+// ============================================
+// CLOSE MODAL ON OUTSIDE CLICK
+// ============================================
+window.addEventListener('click', function(event) {
+    if (event.target.classList && event.target.classList.contains('modal')) {
+        event.target.classList.remove('show');
+    }
+});
+
+// ============================================
+// NAVIGATION & SCROLL
+// ============================================
+window.addEventListener('scroll', function() {
+    const navbar = safeGet('navbar');
+    const scrollTop = safeGet('scrollTop');
+    
+    if (navbar) {
+        if (window.scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    }
+
+    if (scrollTop) {
+        if (window.scrollY > 300) {
+            scrollTop.classList.add('show');
+        } else {
+            scrollTop.classList.remove('show');
+        }
+    }
+});
+
+const scrollTopBtn = safeGet('scrollTop');
+if (scrollTopBtn) {
+    scrollTopBtn.onclick = function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+}
+
+// ============================================
+// INITIALIZE ON PAGE LOAD
+// ============================================
+window.onload = function() {
+    // Load admin name in header
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+    const adminNameEl = safeGet('adminName');
+    if (currentUser && adminNameEl) {
+        adminNameEl.textContent = currentUser.name || 'Administrator';
+    }
+
+    // Load initial data
+    updateStats();
+    renderProducts();
+    renderAdmins();
+
+    console.log('%c🛡️ ADMIN DASHBOARD LOADED!', 'color: #e94560; font-size: 16px; font-weight: bold;');
+    console.log('%c📊 Stats updated successfully', 'color: #27ae60; font-size: 12px;');
+    console.log('Products:', products.length);
+    console.log('Users:', users.length);
+    console.log('Orders:', orders.length);
+    console.log('Admins:', admins.length);
+};
+</script>
+</body>
+</html>
