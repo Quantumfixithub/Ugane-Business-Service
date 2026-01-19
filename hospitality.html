@@ -157,12 +157,18 @@
         }
 
         .nav-menu li a {
-            color: var(--text-dark);
-            font-weight: 500;
-            padding: 0.5rem 0;
-            position: relative;
-            font-size: 0.95rem;
-        }
+  display: flex;              /* makes text + icons align neatly */
+  align-items: center;        /* vertical centering */
+  justify-content: center;    /* keeps them centered horizontally in their space */
+  gap: 0.3rem;                /* spacing if icons are added */
+  color: var(--text-dark);
+  font-weight: 500;
+  padding: 0.5rem 0;
+  position: relative;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
 
         .nav-menu li a:hover,
         .nav-menu li a.active {
@@ -192,16 +198,19 @@
         }
 
         .dropbtn {
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-            cursor: pointer;
-        }
+  display: flex;
+  align-items: center;   /* centers text + arrow vertically */
+  justify-content: center; /* keeps both centered in the link */
+  gap: 0.3rem;           /* space between text and arrow */
+  cursor: pointer;
+}
+
 
         .dropbtn i {
-            font-size: 0.7rem;
-            transition: var(--transition);
-        }
+  font-size: 0.8rem;     /* slightly smaller than text */
+  line-height: 1;        /* keeps it aligned */
+}
+
 
         .dropdown:hover .dropbtn i {
             transform: rotate(180deg);
@@ -1307,4 +1316,5 @@ d-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 </script>
 
 </body>
+
 </html>
